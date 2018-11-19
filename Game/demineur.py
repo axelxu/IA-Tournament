@@ -11,13 +11,13 @@ class Demineur :
         return terminaison_demineur(plateau)
     def est_valide(self, plateau, action):
         i, j = action
-        return (i in range(20) and j in range(20))
+        return (i in range(20) and j in range(20) and plateau.surface[i][j].etat == 9)
     def next(self, plateau, action):
         i, j = action
         demineur_suivant(i, j, plateau)
     def resultat(self, plateau):
-        return "Gagné"
-    
+        return demineur_resultat(plateau)
+
 
 def terminaison_demineur(plateau):
     liste_cachees = []
@@ -68,9 +68,34 @@ def demineur_initialisation(plateau):
 
     for i in range(20) :
         for j in range(20) :
-            plateau.surface[i][j].etat = 9
+            plateau.surface[i][j].etat = 9 #9 => la case n'est pas encore révélée
 
     for k in range(40) :
         i, j = rd.choice(liste_cases)
         plateau.surface[i][j].vide = False
         liste_cases.pop(listes_cases.index((i, j)))
+
+
+
+def demineur_resultat(plateau):
+    for i in range(20):
+        for j in range(20):
+            Case = plateau.surface[i][j]
+            if (Case.vide == False and Case.etat in range(9)):
+                    return "Perdu"
+    return "Gagné"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
