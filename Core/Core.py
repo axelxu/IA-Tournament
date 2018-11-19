@@ -4,13 +4,16 @@ class Partie :
         self.plateau = Plateau(Jeu)
 
     def launch(self):
+        num_tour = 0
         self.plateau.initialisation()
         while not(self.plateau.termine()):
+            self.plateau.message(num_tour, self.joueurs)
             action = input()
             while not(self.plateau.est_valide(action)):
                 print("Valide svp")
                 action = input()
             self.plateau.next(action)
+            num_tour += 1
         print(self.plateau.resultat(self.plateau))
 
 
@@ -29,6 +32,7 @@ class Plateau : #on crée la matrice des cases
         self.est_valide = lambda action : Jeu.est_valide(self, action)
         self.next = lambda action : Jeu.next(self, action)
         self.resultat = Jeu.resultat
+        self.message = Jeu.message
 
     def get_etat(self,i,j): #chope la valeur de tel case dans le plateau
         return(self.surface[i][j].etat)
@@ -40,5 +44,5 @@ class Plateau : #on crée la matrice des cases
 def jouer():
     import Game.morpion as m
     jeu = m.Morpion()
-    partie = Partie(jeu, "axel")
+    partie = Partie(jeu, ["axel", "gabri"])
     partie.launch()
