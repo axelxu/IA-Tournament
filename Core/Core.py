@@ -12,7 +12,7 @@ class Partie :
             while not(self.plateau.est_valide(action)):
                 print("Valide svp")
                 action = input()
-            self.plateau.next(action)
+            self.plateau.next(action, num_tour)
             num_tour += 1
         print(self.plateau.resultat(self.plateau))
 
@@ -30,7 +30,7 @@ class Plateau : #on crée la matrice des cases
         self.initialisation = Jeu.initialisation
         self.termine = lambda : Jeu.termine(self)
         self.est_valide = lambda action : Jeu.est_valide(self, action)
-        self.next = lambda action : Jeu.next(self, action)
+        self.next = lambda action, num_tour : Jeu.next(self, action, num_tour)
         self.resultat = Jeu.resultat
         self.message = Jeu.message
 

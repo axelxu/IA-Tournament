@@ -21,7 +21,7 @@ class Morpion : #Jeu test pour voir si ca maarche (pas vraiment un morpion)
     def next(self,plateau,action, num_tour):
         i,j = action.split()
         i, j = int(i), int(j)
-        plateau.set_case(i,j,False, n_tour%self.nb_joueurs)
+        plateau.set_case(i,j,False, num_tour%self.nb_joueurs)
 
 
     def resultat(self,plateau):
@@ -48,6 +48,3 @@ def terminaison_morpion(plateau) :
             if x.vide :
                 return False
     return True
-
-
-
