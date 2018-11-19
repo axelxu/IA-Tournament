@@ -33,9 +33,16 @@ class Morpion : #Jeu test pour voir si ca maarche (pas vraiment un morpion)
 
 
 def terminaison_morpion(plateau) :
-    compt = 0
-    for l in plateau.surface :
-        for x in l :
-            if not(x.vide) :
-                compt+=1
-    return(compt>=3)
+    acc=[]
+    for i in range(3) :
+        if plateau.get_etat(i,0) == plateau.get_etat(i,1) == plateau.get_etat(i,2) and plateau.get_etat(i,0) != 0 :
+            return(True)
+    for i in range(3) :
+        if plateau.get_etat(0,i) == plateau.get_etat(1,i) == plateau.get_etat(2,i) and plateau.get_etat(0,i) != 0 :
+            return(True)
+    if plateau.get_etat(0,0) == plateau.get_etat(1,1) == plateau.get_etat(2,2) and plateau.get_etat(0,0) != 0 :
+        return True
+    if plateau.get_etat(2,0) == plateau.get_etat(1,1) == plateau.get_etat(0,2) and plateau.get_etat(0,2) != 0 :
+        return True
+    return False
+
