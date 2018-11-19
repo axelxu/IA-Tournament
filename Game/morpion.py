@@ -1,7 +1,8 @@
 class Morpion : #Jeu test pour voir si ca maarche (pas vraiment un morpion)
-    def __init__(self):
+    def __init__(self,nb_joueurs):
         self.hauteur = 3
         self.largeur = 3
+        self.nb_joueurs = nb_joueurs
     def initialisation(self):
         pass
     def termine(self,plateau):
