@@ -31,6 +31,6 @@ class Plateau : #on crée la matrice des cases
     def get_etat(self,i,j): #chope la valeur de tel case dans le plateau
         return(self.surface[i][j].etat)
 
-    def set_case(self,i,j,vide,etat):
+    def set_case(self, i, j, vide, etat):
         self.surface[i][j] = Case((i,j),vide,etat)
 
