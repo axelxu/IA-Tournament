@@ -44,5 +44,5 @@ class Plateau : #on crée la matrice des cases
 def jouer():
     import Game.morpion as m
     jeu = m.Morpion()
-    partie = Partie(jeu, "axel")
+    partie = Partie(jeu, ["axel","gab"])
     partie.launch()
