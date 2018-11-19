@@ -13,15 +13,15 @@ class Morpion :
 
 
     def est_valide(self,plateau,action):
-        i,j,joueur=action.split()
+        i,j = action.split()
         i, j = int(i), int(j)
         return(0<=i<self.hauteur and 0<=j<self.largeur and plateau.surface[i][j].vide)
 
 
-    def next(self,plateau,action):
-        i,j,joueur=action.split()
+    def next(self,plateau,action, num_tour):
+        i,j = action.split()
         i, j = int(i), int(j)
-        plateau.set_case(i,j,False,joueur)
+        plateau.set_case(i,j,False, n_tour%self.nb_joueurs)
 
 
     def resultat(self,plateau):
