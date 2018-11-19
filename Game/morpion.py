@@ -1,4 +1,4 @@
-class Morpion :
+class Morpion : #Jeu test pour voir si ca maarche (pas vraiment un morpion)
     def __init__(self):
         self.hauteur = 3
         self.largeur = 3
