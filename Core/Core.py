@@ -14,3 +14,5 @@ class plateau : #on crée la matric des cases
     def set_case(self,i,j,vide,etat):
         self.surface[i][j] = Case((i,j),vide,etat)
 
+
+
