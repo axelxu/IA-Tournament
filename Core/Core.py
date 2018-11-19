@@ -7,10 +7,11 @@ class Partie :
         self.plateau.initialisation()
         while not(self.plateau.termine()):
             action = input()
-            while not(self.plateau.valide(action)):
+            while not(self.plateau.est_valide(action)):
+                print("Valide svp")
                 action = input()
-            self.plateau = self.plateau.next(action)
-        print(self.plateau.resultat)
+            self.plateau.next(action)
+        print(self.plateau.resultat(self.plateau))
 
 
 class Case:#on crée la classe case qu'on ajoutera dans nos matrices
@@ -23,9 +24,10 @@ class Plateau : #on crée la matrice des cases
     def __init__(self,Jeu):
         self.Jeu=Jeu
         self.surface = [[Case((i,j),True,0) for j in range(Jeu.largeur)] for i in range(Jeu.hauteur)]
-        self.termine = lambda : Jeu.termine(self.plateau)
-        self.est_valide = lambda action : Jeu.est_valide(self.plateau, action)
-        self.next = lambda action : Jeu.next(self.plateau, action)
+        self.initialisation = Jeu.initialisation
+        self.termine = lambda : Jeu.termine(self)
+        self.est_valide = lambda action : Jeu.est_valide(self, action)
+        self.next = lambda action : Jeu.next(self, action)
         self.resultat = Jeu.resultat
 
     def get_etat(self,i,j): #chope la valeur de tel case dans le plateau
@@ -35,4 +37,8 @@ class Plateau : #on crée la matrice des cases
         self.surface[i][j] = Case((i,j),vide,etat)
 
 
-
+def jouer():
+    import Game.morpion as m
+    jeu = m.Morpion()
+    partie = Partie(jeu, "axel")
+    partie.launch()
