@@ -4,7 +4,7 @@ class Morpion :
         self.largeur = 3
         self.nb_joueurs = 2
 
-    def initialisation(self):
+    def initialisation(self, plateau):
         pass
 
 
@@ -21,7 +21,7 @@ class Morpion :
     def next(self,plateau,action, num_tour):
         i,j = action.split()
         i, j = int(i), int(j)
-        plateau.set_case(i,j,False, num_tour%self.nb_joueurs)
+        plateau.set_case(i,j,False, 1+num_tour%self.nb_joueurs)
 
 
     def resultat(self,plateau):

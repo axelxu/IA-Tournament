@@ -10,13 +10,15 @@ class Demineur :
     def termine(self, plateau):
         return terminaison_demineur(plateau)
     def est_valide(self, plateau, action):
-        i, j = action
+        i, j = map(int, action.split())
         return (i in range(20) and j in range(20) and plateau.surface[i][j].etat == 9)
-    def next(self, plateau, action):
-        i, j = action
+    def next(self, plateau, action, num_tour):
+        i, j = map(int, action.split())
         demineur_suivant(i, j, plateau)
     def resultat(self, plateau):
         return demineur_resultat(plateau)
+    def message(self, a,b ):
+        print("Entrer une case : i j")
 
 
 def terminaison_demineur(plateau):
@@ -73,7 +75,7 @@ def demineur_initialisation(plateau):
     for k in range(40) :
         i, j = rd.choice(liste_cases)
         plateau.surface[i][j].vide = False
-        liste_cases.pop(listes_cases.index((i, j)))
+        liste_cases.pop(liste_cases.index((i, j)))
 
 
 
