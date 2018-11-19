@@ -1,10 +1,10 @@
-class Morpion : #Jeu test pour voir si ca maarche (pas vraiment un morpion)
+class Morpion :
     def __init__(self):
         self.hauteur = 3
         self.largeur = 3
         self.nb_joueurs = 2
 
-    def initialisation(self):
+    def initialisation(self, plateau):
         pass
 
 
@@ -13,15 +13,15 @@ class Morpion : #Jeu test pour voir si ca maarche (pas vraiment un morpion)
 
 
     def est_valide(self,plateau,action):
-        i,j,joueur=action.split()
+        i,j = action.split()
         i, j = int(i), int(j)
         return(0<=i<self.hauteur and 0<=j<self.largeur and plateau.surface[i][j].vide)
 
 
-    def next(self,plateau,action):
-        i,j,joueur=action.split()
+    def next(self,plateau,action, num_tour):
+        i,j = action.split()
         i, j = int(i), int(j)
-        plateau.set_case(i,j,False,joueur)
+        plateau.set_case(i,j,False, 1+num_tour%self.nb_joueurs)
 
 
     def resultat(self,plateau):
@@ -33,9 +33,18 @@ class Morpion : #Jeu test pour voir si ca maarche (pas vraiment un morpion)
 
 
 def terminaison_morpion(plateau) :
-    compt = 0
+    for i in range(3) :
+        if plateau.get_etat(i,0) == plateau.get_etat(i,1) == plateau.get_etat(i,2) and plateau.get_etat(i,0) != 0 :
+            return(True)
+    for i in range(3) :
+        if plateau.get_etat(0,i) == plateau.get_etat(1,i) == plateau.get_etat(2,i) and plateau.get_etat(0,i) != 0 :
+            return(True)
+    if plateau.get_etat(0,0) == plateau.get_etat(1,1) == plateau.get_etat(2,2) and plateau.get_etat(0,0) != 0 :
+        return True
+    if plateau.get_etat(2,0) == plateau.get_etat(1,1) == plateau.get_etat(0,2) and plateau.get_etat(0,2) != 0 :
+        return True
     for l in plateau.surface :
         for x in l :
-            if not(x.vide) :
-                compt+=1
-    return(compt>=3)
+            if x.vide :
+                return False
+    return True
