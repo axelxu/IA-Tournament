@@ -9,7 +9,7 @@ class Demineur :
         demineur_initialisation(plateau)
     def termine(self, plateau):
         return terminaison_demineur(plateau)
-    def Est_Valide(self, plateau, action):
+    def est_valide(self, plateau, action):
         i, j = action
         return (i in range(20) and j in range(20))
     def next(self, plateau, action):
@@ -17,7 +17,7 @@ class Demineur :
         demineur_suivant(i, j, plateau)
     def resultat(self, plateau):
         return "Gagné"
-
+    
 
 def terminaison_demineur(plateau):
     liste_cachees = []
@@ -74,20 +74,3 @@ def demineur_initialisation(plateau):
         i, j = rd.choice(liste_cases)
         plateau.surface[i][j].vide = False
         liste_cases.pop(listes_cases.index((i, j)))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
