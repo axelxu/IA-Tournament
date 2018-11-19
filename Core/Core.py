@@ -2,6 +2,7 @@ class Partie :
     def __init__(self, Jeu, joueurs):
         self.joueurs = joueurs
         self.plateau = Plateau(Jeu)
+
     def launch(self):
         self.plateau.initialisation()
         while not(self.plateau.termine()):
@@ -27,8 +28,8 @@ class Plateau : #on crée la matrice des cases
         self.next = lambda action : Jeu.next(self.plateau, action)
         self.resultat = Jeu.resultat
 
-    def get_valeur(self,i,j): #chope la valeur de tel case dans le plateau
-        return(self.surface[i][j])
+    def get_etat(self,i,j): #chope la valeur de tel case dans le plateau
+        return(self.surface[i][j].etat)
 
     def set_case(self,i,j,vide,etat):
         self.surface[i][j] = Case((i,j),vide,etat)
