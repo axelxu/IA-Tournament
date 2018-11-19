@@ -66,7 +66,7 @@ def demineur_suivant(i, j, plateau):
 
 def demineur_initialisation(plateau):
     liste_mines = []
-    liste_cases = [(i, j) for i in range(20) for j in range(20)]
+    liste_cases = [(i, j) for i in range(20) for j in range(20)].pop(0)
 
     for i in range(20) :
         for j in range(20) :
