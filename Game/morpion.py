@@ -6,21 +6,21 @@ class Morpion :
         pass
     def termine(self,plateau):
         return(terminaison_morpion(plateau))
-    def Est_Valide(self,plateau,action):
-        i,j,joueur=action
-        a,b,c=plateau[i][j]
-        return(b)
-    def Next(self,plateau,action):
-        i,j,joueur=action
-        plateau.set_case(i,j,joueur)
+    def est_valide(self,plateau,action):
+        i,j,joueur=action.split()
+        i, j = int(i), int(j)
+        return(plateau.surface[i][j].vide)
+    def next(self,plateau,action):
+        i,j,joueur=action.split()
+        i, j = int(i), int(j)
+        plateau.set_case(i,j,False,joueur)
     def resultat(self,plateau):
-        return("a()xel")
+        return("axel")
 
 def terminaison_morpion(plateau) :
     compt = 0
-    for l in plateau :
+    for l in plateau.surface :
         for x in l :
-            a,b,c = x
-            if b :
+            if not(x.vide) :
                 compt+=1
     return(compt>=3)
