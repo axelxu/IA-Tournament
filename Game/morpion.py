@@ -9,7 +9,7 @@ class Morpion :
     def est_valide(self,plateau,action):
         i,j,joueur=action.split()
         i, j = int(i), int(j)
-        return(plateau.surface[i][j].vide)
+        return(0<=i<self.hauteur and 0<=j<self.largeur and plateau.surface[i][j].vide)
     def next(self,plateau,action):
         i,j,joueur=action.split()
         i, j = int(i), int(j)
