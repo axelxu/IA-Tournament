@@ -48,3 +48,6 @@ def terminaison_morpion(plateau) :
             if x.vide :
                 return False
     return True
+
+
+
