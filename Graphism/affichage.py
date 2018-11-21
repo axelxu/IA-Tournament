@@ -4,8 +4,8 @@ from PIL import Image
 import Core.Core as c
 import Game.morpion as m
 import os
-root=Tk()
 
+dir = os.getcwd()
 def affichage_init(plateau) :
     l=plateau.Jeu.largeur
     h=plateau.Jeu.hauteur
@@ -21,7 +21,8 @@ def affichage_init(plateau) :
         for j in range(l) :
             liste_cases.append(Frame(background,bg="#DCFDFF",height=400/h,width=400/l, bd=2, relief = SOLID))
             x = graphical_grid[i][j]
-            Label(liste_cases[-1],bg="#DCFDFF",image=PhotoImage(file=dir+m.THEME[x])).pack(expand=YES)
+            #Label(liste_cases[-1],bg="#DCFDFF",image=PhotoImage(file=dir+m.THEME[x])).pack(expand=YES)
+            Label(liste_cases[-1], bg="#DCFDFF", text = str(x)).pack(expand=YES)
     for i in range(h) :
         for j in range(l) :
             liste_cases[h*i+j].grid(column=j,row=i)
@@ -33,7 +34,8 @@ def update(principal,plateau) :
         for case in background.winfo_children():
             for label in case.winfo_children():
                 x = plateau.get_etat(k//plateau.Jeu.largeur,k%plateau.Jeu.largeur)
-                label.config(image=PhotoImage(file=dir+m.THEME[x]))
+                #label.config(image=PhotoImage(file=dir+m.THEME[x]))
+                label.config(text = str(x))
                 k+=1
     principal.update()
 

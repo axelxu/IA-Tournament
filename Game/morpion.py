@@ -56,5 +56,5 @@ def terminaison_morpion(plateau) :
                 return False
     return True
 
-THEME={0 : "\\Images\\morpion\\vide_moprion.png", 1 : "\\Images\\morpion\\cercle.png", 2 : "\\Images\\morpion\\croix_2.png" }
+#THEME={0 : "/Images/morpion/cercle.png", 1 : "/Images/morpion/cercle.png", 2 : "/Images/morpion/croix_2.png" }
 
