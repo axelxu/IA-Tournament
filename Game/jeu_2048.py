@@ -26,6 +26,7 @@ class Jeu_2048 :
             A = move_grid_left(A)
         elif action == "d" :
             A = move_grid_right(A)
+
         if A != grille and (action in ["h", "b", "g", "d"]):
             return(True)
 
@@ -43,21 +44,22 @@ class Jeu_2048 :
             grille = move_grid_left(grille)
         elif action == "d" :
             grille = move_grid_right(grille)
+        grille = grid_add_new_tile(grille)
         grille_to_plateau(self, grille,plateau)
 
     def resultat (self, plateau):
         result = 0
         for i in range (self.hauteur):
             for j in range (self.largeur):
-                result += plateau.get_etat(self, i, j)
-        return (result)
+                result += plateau.get_etat(i, j)
+        return ("Ton score est :",result)
 
     def message(self, n_tours, joueurs):
         print("haut : h    bas : b     gauche : g      droite : d")
     #Transformations
 
 def plateau_to_grille(self,plateau):
-    grille = [[plateau.get_etat(i, j) for i in range (self.hauteur) ] for j in range (self.largeur)]
+    grille = [[plateau.get_etat(i, j) for j in range (self.hauteur) ] for i in range (self.largeur)]
     return(grille)
 
 def grille_to_plateau(self,grille,plateau):
@@ -177,14 +179,13 @@ def transposee(grid):
     for i in range (n):
         for j in range (n):
             transp[i][j]=grid[j][i]
-
     return(transp)
 
 def move_grid_left(grid):
     for row in grid :
         row = move_row_left(row)
 
-        return(grid)
+    return(grid)
 def move_grid_right(grid):
     grid_right=[]
     for row in grid :
@@ -244,5 +245,4 @@ def move_possible(grille):
 
 def is_game_over(grid):
     return(move_possible(grid) == [False, False, False, False])
-
 

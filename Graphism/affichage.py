@@ -3,6 +3,8 @@ import os
 from PIL import Image
 import Core.Core as c
 import Game.morpion as m
+import os
+root=Tk()
 
 def affichage_init(plateau) :
     l=plateau.Jeu.largeur
@@ -19,7 +21,7 @@ def affichage_init(plateau) :
         for j in range(l) :
             liste_cases.append(Frame(background,bg="#DCFDFF",height=400/h,width=400/l, bd=2, relief = SOLID))
             x = graphical_grid[i][j]
-            Label(liste_cases[-1],width=int(44/h),height=int(20/l),bg="#DCFDFF",text=str(x),font={"Verdana", 40, "bold"}).pack(expand=YES)
+            Label(liste_cases[-1],bg="#DCFDFF",image=PhotoImage(file=dir+m.THEME[x])).pack(expand=YES)
     for i in range(h) :
         for j in range(l) :
             liste_cases[h*i+j].grid(column=j,row=i)
@@ -31,7 +33,7 @@ def update(principal,plateau) :
         for case in background.winfo_children():
             for label in case.winfo_children():
                 x = plateau.get_etat(k//plateau.Jeu.largeur,k%plateau.Jeu.largeur)
-                label.config(text = str(x))
+                label.config(image=PhotoImage(file=dir+m.THEME[x]))
                 k+=1
     principal.update()
 
@@ -48,20 +50,6 @@ def entree(root, partie, num_tour):
     if not (partie.plateau.est_valide(action)):
         root.after(10, entree)
     return action
-
-def commencer_partie(root, partie, joueurs):
-
-    partie.plateau.message(num_tour, partie.joueurs)
-    action = input()
-    while not (partie.plateau.est_valide(action)):
-        print("Valide svp")
-        action = input()
-    partie.plateau.next(action, num_tour)
-    partie.plateau.afficher()
-    num_tour += 1
-    if partie.plateau.termine():
-        return
-    root.after(10, commencer_partie(root, partie, joueurs))
 
 def changer_texte(label, texte):
     label.configure(text = texte)
