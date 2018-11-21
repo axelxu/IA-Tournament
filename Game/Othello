@@ -1,0 +1,111 @@
+
+
+class Othello :
+    def __init__(self):
+        self.hauteur = 8
+        self.largeur = 8
+        self.nb_joueurs = 2
+
+
+    def initialisation (self,plateau):
+        plateau.set_case(4,4,False, 1)
+        plateau.set_case(4,4,False, 1)
+        plateau.set_case(4,5,False, 2)
+        plateau.set_case(5,4,False, 2)
+
+    def termine(self, plateau):
+        if len(get_empty_tiles_positions(plateau)) == 0 :
+            return (True)
+        else :
+            return (False)
+
+    def next(self, plateau, action, num_tour):
+        i,j = action.split()
+        i, j = int(i), int(j)
+        plateau.set_case(i,j,False, 1+num_tour%self.nb_joueurs)
+        ####A Compléter####
+
+
+
+def plateau_to_grille(plateau):
+    grille = [[plateau.get_etat(i, j) for j in range (self.hauteur) ] for i in range (self.largeur)]
+    return(grille)
+
+def grille_to_plateau(grille,plateau):
+    for i in range (self.hauteur) :
+        for j in range (self.largeur) :
+            vide = grille[i][j] == 0
+            plateau.set_case(i,j,vide,grille[i][j])
+
+def get_empty_tiles_positions(plateau):
+    empty_tiles=[]
+
+    for i in range (self.hauteur):
+       for j in range (self.largeur):
+            if plateau.surface[i][j].vide :
+                empty_tiles.append((i,j))
+    return(empty_tiles)
+
+def etoile_grille(grid,ligne,colonne):
+    n = len(grid)
+    right = grid[ligne][colonne:]
+    left = grid[ligne][:colonne + 1]
+    up, down = [],[]
+    for i in range (n):
+        if i <= ligne :
+            up.append(grid[i][colonne])
+        if i >= ligne :
+            down.append(grid[i][colonne])
+
+
+    return(left, right, up, down)
+
+def inversion(ligne):
+    inv=[]
+    n=len(ligne)
+    for i in range (n):
+        inv.append(ligne[n-i-1])
+    return(inv)
+
+def inversion_grille (grid):
+    inv=[]
+    for row in grid :
+        inv.append(inversion(row))
+    return(inv)
+
+def transposee(grid):
+    n=len(grid)
+    transp=[]
+    for i in range (n):
+        transp.append([0]*n)
+    for i in range (n):
+        for j in range (n):
+            transp[i][j]=grid[j][i]
+    return(transp)
+
+def conversion_haut (i,j,grille):
+    ligne = i
+    joueur = grille[i][j]
+    t=[2,1]
+    adversaire = t[joueur-1]
+    while ligne > 0 and grille[ligne-1][j] == adversaire :
+        ligne = ligne-1
+        print("ligne=",ligne)
+    if ligne > 0 and grille[ligne-1][j] == joueur :
+        for l in range (ligne, i):
+            grille[l][j]==joueur
+    return(grille)
+
+def conversion_bas (i,j,grille):
+    ligne = i
+    joueur = grille[i][j]
+    t=[2,1]
+    adversaire = t[joueur-1]
+    while ligne < len(grille) and grille[ligne+1][j] == adversaire :
+        ligne = ligne + 1
+
+    if ligne < len(grille) and grille[ligne+1][j] == joueur :
+        for l in range (ligne, i):
+            grille[l][j]==joueur
+    return(grille)
+
