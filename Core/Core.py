@@ -73,4 +73,3 @@ def jouer_2048():
     partie = Partie(jeu, ["Joueur_1"])
     partie.launch()
 
-jouer_2048()
