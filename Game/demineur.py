@@ -21,6 +21,17 @@ class Demineur :
         print("Entrer une case : i j")
         return "Entrer une case : i j"
 
+    THEME = {0 : "/Images/demineur/devoilee_vide.gif",
+             1 : "/Images/demineur/un.gif",
+             2 : "/Images/demineur/deux.gif",
+             3 : "/Images/demineur/trois.gif",
+             4 : "/Images/demineur/quatre.gif",
+             5 : "/Images/demineur/cinq.gif",
+             6 : "/Images/demineur/six.gif",
+             7 : "/Images/demineur/sept.gif",
+             8 : "/Images/demineur/huit.gif",
+             9 : "/Images/demineur/inconnue.gif"}
+
 def terminaison_demineur(plateau):
     liste_cachees = []
     liste_piegees = []
@@ -115,10 +126,3 @@ def construire_matrice(plateau):
             matrix[k][set_cases.index(case)] = 1
 
     return matrix, vector
-
-
-
-
-
-
-

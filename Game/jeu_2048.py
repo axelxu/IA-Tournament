@@ -55,7 +55,13 @@ class Jeu_2048 :
         return ("Ton score est :",result)
 
     def message(self, n_tours, joueurs):
-        print("haut : h    bas : b     gauche : g      droite : d")
+        return "haut : h    bas : b     gauche : g      droite : d"
+
+    THEME = {}
+    THEME[0] = "/Images/2048/0.gif"
+    for i in range(1, 18):
+        THEME[2 ** i] = "/Images/2048/" + str(i) + ".gif"
+
     #Transformations
 
 def plateau_to_grille(self,plateau):

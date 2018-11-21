@@ -19,7 +19,7 @@ def affichage_init(plateau, THEME = {}) :
     background.grid()
     for i in range(h) :
         for j in range(l) :
-            liste_cases.append(Frame(background,bg="#DCFDFF",height=400/h,width=400/l, bd=2, relief = SOLID))
+            liste_cases.append(Frame(background,bg="#DCFDFF",height=400/h,width=400/l, bd=1, relief = SOLID))
             x = graphical_grid[i][j]
             if THEME :
                 Label(liste_cases[-1],bg="#DCFDFF",image=THEME[int(x)]).pack(expand=YES)
@@ -61,11 +61,12 @@ def main(jeu, joueurs):
     except :
         print("Pas de Thème configuré")
     print(THEME)
+    saisie = Frame(root)
     texte = StringVar()
-    message = Label(root, textvariable = texte)
-    message.grid(column=1)
-    action = StringVar(root)
-    entree = Entry(root, textvariable=action, width=30)
+    message = Label(saisie, textvariable = texte)
+    message.grid(column=0, row = 2)
+    action = StringVar(saisie)
+    entree = Entry(saisie, textvariable=action, width=30)
 
 
     def agir():
@@ -78,7 +79,7 @@ def main(jeu, joueurs):
                 partie.plateau.afficher()
                 num_tour += 1
             else :
-                texte.set(partie.plateau.message(num_tour, partie.joueurs)+" Le coup entré n'est pas  valide")
+                texte.set(partie.plateau.message(num_tour, partie.joueurs)+"\nLe coup entré n'est pas  valide")
         else :
             texte.set(partie.plateau.resultat(partie.plateau))
         if partie.plateau.termine() :
@@ -86,7 +87,7 @@ def main(jeu, joueurs):
 
         print(entree.get())
 
-    jouer = Button(root, text = "Jouer", command=agir)
+    jouer = Button(saisie, text = "Jouer", command=agir)
 
 
 
@@ -96,9 +97,10 @@ def main(jeu, joueurs):
 
     plateau_graphique = affichage_init(partie.plateau, THEME)
     plateau_graphique.grid(row = 0, column = 0)
-    entree.grid(column=1)
-    jouer.grid(column=1)
-
+    entree.grid(column=0, row = 0)
+    jouer.grid(column=0, row = 1)
+    saisie.grid(row = 0, column = 1)
+    texte.set(partie.plateau.message(num_tour, partie.joueurs))
 
 
     root.mainloop()

@@ -5,6 +5,7 @@ class Partie :
 
     def launch(self):
         num_tour = 0
+        print(self)
         self.plateau.initialisation()
         self.plateau.afficher()
         while not(self.plateau.termine()):
@@ -73,4 +74,3 @@ def jouer_2048():
     partie = Partie(jeu, ["Joueur_1"])
     partie.launch()
 
-jouer_2048()
