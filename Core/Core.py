@@ -65,3 +65,11 @@ def jouer_demineur():
     jeu = d.Demineur()
     partie = Partie(jeu, ["toi"])
     partie.launch()
+
+def jouer_2048():
+    import Game.jeu_2048 as d
+    jeu = d.Jeu_2048()
+    partie = Partie(jeu, ["Joueur_1"])
+    partie.launch()
+
+
