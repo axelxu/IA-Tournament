@@ -20,7 +20,7 @@ class Demineur :
         return demineur_resultat(plateau)
     def message(self, a,b ):
         print("Entrer une case : i j")
-
+        return "Entrer une case : i j"
 
 def terminaison_demineur(plateau):
     liste_cachees = []
@@ -70,7 +70,7 @@ def demineur_initialisation(plateau):
     liste_cases.pop(0)
     for i in range(20) :
         for j in range(20) :
-            plateau.surface[i][j].etat = [9, False] #9 => la case n'est pas encore révélée
+            plateau.surface[i][j].etat = 9 #9 => la case n'est pas encore révélée
                                                     #False =>  le joueur n'a pas cliqué sur la case
 
     for k in range(40) :

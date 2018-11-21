@@ -5,7 +5,6 @@ class Morpion :
         self.hauteur = 3
         self.largeur = 3
         self.nb_joueurs = 2
-        self.theme = get_theme()
 
 
     def initialisation(self, plateau):
@@ -17,7 +16,10 @@ class Morpion :
 
 
     def est_valide(self,plateau,action):
-        i,j = action.split()
+        try :
+            i,j = action.split()
+        except :
+            return False
         i, j = int(i), int(j)
         return(0<=i<self.hauteur and 0<=j<self.largeur and plateau.surface[i][j].vide)
 
@@ -33,7 +35,8 @@ class Morpion :
 
 
     def message(self, n_tour, joueurs):
-        print(joueurs[n_tour%self.nb_joueurs], ", joues !")
+        print(joueurs[n_tour%self.nb_joueurs]+ ", joues !")
+        return joueurs[n_tour%self.nb_joueurs]+ ", joues !"
 
 
 def terminaison_morpion(plateau) :
