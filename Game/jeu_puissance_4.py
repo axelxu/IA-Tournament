@@ -1,5 +1,5 @@
-class puissance_4:
 
+class puissance_4:
     def __init__(self):
         self.largeur=7
         self.hauteur=6
@@ -9,6 +9,7 @@ class puissance_4:
         pass
 
     def termine(self,plateau):
+
         return(self.terminaison_puissance_4(plateau)[0])
 
     def est_valide(self,plateau,action):
