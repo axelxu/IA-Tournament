@@ -1,5 +1,6 @@
 from tkinter import *
 from PIL import Image
+import Game.morpion as m
 import os
 root=Tk()
 def affichage_init(plateau) :
@@ -17,7 +18,7 @@ def affichage_init(plateau) :
         for j in range(l) :
             liste_cases.append(Frame(background,bg="#DCFDFF",height=400/h,width=400/l, bd=2, relief = SOLID))
             x = graphical_grid[i][j]
-            Label(liste_cases[-1],bg="#DCFDFF",image=photo).pack(expand=YES)
+            Label(liste_cases[-1],bg="#DCFDFF",image=PhotoImage(file=dir+m.THEME[x])).pack(expand=YES)
     for i in range(h) :
         for j in range(l) :
             liste_cases[h*i+j].grid(column=j,row=i)
@@ -29,13 +30,17 @@ def update(principal,plateau) :
         for case in background.winfo_children():
             for label in case.winfo_children():
                 x = plateau.get_etat(k//plateau.Jeu.largeur,k%plateau.Jeu.largeur)
-                label.config(text = str(x))
+                label.config(image=PhotoImage(file=dir+m.THEME[x]))
                 k+=1
     principal.update()
 
 
 dir=os.getcwd()
 cercle=open(dir+"\\Images\\morpion\\cercle.png")
+croix=open(dir+"\\Images\\morpion\\croix.png")
 photo=PhotoImage(file=dir+"\\Images\\morpion\\cercle.png")
 
+def creer_image_vide(x,y) :
+    img=Image.new("RGBA",(x,y),(0,0,0,0))
+    img.save("vide_moprion.png")
 

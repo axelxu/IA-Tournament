@@ -5,7 +5,6 @@ class Morpion :
         self.hauteur = 3
         self.largeur = 3
         self.nb_joueurs = 2
-        self.theme = get_theme()
 
 
     def initialisation(self, plateau):
@@ -53,6 +52,5 @@ def terminaison_morpion(plateau) :
                 return False
     return True
 
+THEME={0 : "\\Images\\morpion\\vide_moprion.png", 1 : "\\Images\\morpion\\cercle.png", 2 : "\\Images\\morpion\\croix_2.png" }
 
-def get_theme():
-    return os.getcwd()
