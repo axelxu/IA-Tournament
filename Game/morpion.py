@@ -1,8 +1,12 @@
+import os
+
 class Morpion :
     def __init__(self):
         self.hauteur = 3
         self.largeur = 3
         self.nb_joueurs = 2
+        self.theme = get_theme()
+
 
     def initialisation(self, plateau):
         pass
@@ -50,4 +54,5 @@ def terminaison_morpion(plateau) :
     return True
 
 
-
+def get_theme():
+    return os.getcwd()
