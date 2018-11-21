@@ -1,5 +1,5 @@
 class puissance_4():
-    def _init_(self):
+    def __init__(self):
         self.largeur=7
         self.hauteur=6
         self.nb_joueurs=2
@@ -8,7 +8,7 @@ class puissance_4():
         pass
 
     def termine(self,plateau):
-        return(terminaison_puissance_4(plateau))
+        return(self.terminaison_puissance_4(plateau))
 
     def est_valide(self,plateau,action):
         j, joueur= action.split()

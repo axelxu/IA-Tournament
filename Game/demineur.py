@@ -19,7 +19,7 @@ class Demineur :
         return demineur_resultat(plateau)
     def message(self, a,b ):
         print("Entrer une case : i j")
-
+        return "Entrer une case : i j"
 
 def terminaison_demineur(plateau):
     liste_cachees = []
@@ -86,6 +86,35 @@ def demineur_resultat(plateau):
                     return "Perdu"
     return "Gagné"
 
+
+def construire_matrice(plateau):
+    voisinages = {}
+    liste_cases_connues = []
+    for i in range(20):
+        for j in range(20):
+            if plateau.surface[i][j].etat in range(1, 9):
+                liste_cases_connues.append((i, j))
+    n = len(liste_cases_connues)
+
+    liste_cases_inconnues = []
+    for (i, j) in liste_cases_connues:
+        liste = []
+        for k1 in [i-1, i, i+1]:
+            for k2 in [j-1, j, j+1]:
+                if k1 in range(20) and k2 in range (20) and plateau.surface[k1][k2].etat == 9:
+                    liste_cases_inconnues.append((k1,k2))
+                    liste.append((k1, k2))
+        voisinages[(i, j)] = liste
+
+    set_cases = list(set(liste_cases_inconnues))
+    matrix = [[0]*len(set_cases) for i in range(len(liste_cases_connues))]
+    vector = [plateau.surface[i][j].etat for (i, j) in liste_cases_connues]
+
+    for (k, (i, j)) in enumerate(liste_cases_connues):
+        for case in voisinages[(i, j)] :
+            matrix[k][set_cases.index(case)] = 1
+
+    return matrix, vector
 
 
 
