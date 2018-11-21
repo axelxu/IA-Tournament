@@ -25,13 +25,15 @@ class Jeu_2048 :
         elif action == "g" :
             A = move_grid_left(A)
         elif action == "d" :
-            A = move_grid_droite(A)
-        if A == grille or (action not in ["h", "b", "g", "d"]):
+            A = move_grid_right(A)
+        if A != grille and (action in ["h", "b", "g", "d"]):
+            return(True)
+
+        else :
             return(False)
-        return(True)
 
 
-    def next(self, plateau, action):
+    def next(self, plateau, action, num_tour):
         grille = plateau_to_grille(self, plateau)
         if action == "h" :
             grille = move_grid_up(grille)
@@ -40,31 +42,29 @@ class Jeu_2048 :
         elif action == "g" :
             grille = move_grid_left(grille)
         elif action == "d" :
-            grille = move_grid_droite(grille)
-        grille_to_plateau(self, grille)
+            grille = move_grid_right(grille)
+        grille_to_plateau(self, grille,plateau)
 
     def resultat (self, plateau):
         result = 0
         for i in range (self.hauteur):
-            for j in range (self.longueur):
+            for j in range (self.largeur):
                 result += plateau.get_etat(self, i, j)
         return (result)
 
-    def message(self):
-        return("haut : h      bas : b     gauche : g      droite : d")
-
+    def message(self, n_tours, joueurs):
+        print("haut : h    bas : b     gauche : g      droite : d")
     #Transformations
 
 def plateau_to_grille(self,plateau):
-    grille = [[[plateau.get_etat(self, i, j)] for i in range (self.hauteur) ] for j in range (self.largeur)]
+    grille = [[plateau.get_etat(i, j) for i in range (self.hauteur) ] for j in range (self.largeur)]
     return(grille)
 
 def grille_to_plateau(self,grille,plateau):
     for i in range (self.hauteur) :
         for j in range (self.largeur) :
             vide = grille[i][j] == 0
-            print(i,j,vide, grille[i][j])
-            plateau.set_case(self,i,j,vide,grille[i][j])
+            plateau.set_case(i,j,vide,grille[i][j])
 
 
 
@@ -136,7 +136,6 @@ def init_game(n):
 
 def move_row_left(ligne):
     n=len(ligne)
-
     for j in range (1,n):
         stop = 0
         colonne = j
@@ -246,5 +245,4 @@ def move_possible(grille):
 def is_game_over(grid):
     return(move_possible(grid) == [False, False, False, False])
 
-def message(self):
-    return("haut : h    bas : b     gauche : g      droite : d")
+

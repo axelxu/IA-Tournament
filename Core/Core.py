@@ -6,6 +6,7 @@ class Partie :
     def launch(self):
         num_tour = 0
         self.plateau.initialisation()
+        self.plateau.afficher()
         while not(self.plateau.termine()):
             self.plateau.message(num_tour, self.joueurs)
             action = input()
@@ -64,4 +65,10 @@ def jouer_demineur():
     import Game.demineur as d
     jeu = d.Demineur()
     partie = Partie(jeu, ["toi"])
+    partie.launch()
+
+def jouer_2048():
+    import Game.jeu_2048 as d
+    jeu = d.Jeu_2048()
+    partie = Partie(jeu, ["Joueur_1"])
     partie.launch()
