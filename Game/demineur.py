@@ -89,7 +89,6 @@ def demineur_resultat(plateau):
 
 def construire_matrice(plateau):
     voisinages = {}
-    liste_lignes = []
     liste_cases_connues = []
     for i in range(20):
         for j in range(20):
