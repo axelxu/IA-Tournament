@@ -65,3 +65,6 @@ def jouer_demineur():
     jeu = d.Demineur()
     partie = Partie(jeu, ["toi"])
     partie.launch()
+
+
+
