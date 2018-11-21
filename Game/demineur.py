@@ -78,12 +78,11 @@ def demineur_initialisation(plateau):
         liste_cases.pop(liste_cases.index((i, j)))
 
 
-
 def demineur_resultat(plateau):
     for i in range(20):
         for j in range(20):
             Case = plateau.surface[i][j]
-            if (Case.vide == False and Case.etat in range(9)):
+            if (Case.vide == False) and Case.etat in range(9):
                     return "Perdu"
     return "Gagné"
 
