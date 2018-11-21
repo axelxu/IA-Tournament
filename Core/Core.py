@@ -6,6 +6,7 @@ class Partie :
     def launch(self):
         num_tour = 0
         self.plateau.initialisation()
+        self.plateau.afficher()
         while not(self.plateau.termine()):
             self.plateau.message(num_tour, self.joueurs)
             action = input()
