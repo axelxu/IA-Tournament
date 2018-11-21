@@ -53,7 +53,7 @@ def decompte(i, j, plateau):
         if nombre_mines == 0 :
             for k1 in [i-1, i, i+1]:
                 for k2 in [j-1, j, j+1]:
-                    if (k1 != k2 and k1 in range(20) and k2 in range (20)):
+                    if k1 in range(20) and k2 in range (20):
                         if not plateau.surface[k1][k2] in cases_visitees :
                             decompte_aux(k1, k2, plateau)
 
