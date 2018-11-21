@@ -106,16 +106,15 @@ def construire_matrice(plateau):
                     liste.append((k1, k2))
         voisinages[(i, j)] = liste
 
-    set = set(liste_cases_inconnues)
-    matrix = [[0]*len(set) for i in range(len(liste_cases_connues))]
+    set_cases = list(set(liste_cases_inconnues))
+    matrix = [[0]*len(set_cases) for i in range(len(liste_cases_connues))]
     vector = [plateau.surface[i][j].etat for (i, j) in liste_cases_connues]
 
     for (k, (i, j)) in enumerate(liste_cases_connues):
         for case in voisinages[(i, j)] :
-            matrix[k][set.index(case)] = 1
-    
-    return matrix, vector
+            matrix[k][set_cases.index(case)] = 1
 
+    return matrix, vector
 
 
 
