@@ -1,6 +1,6 @@
 from tkinter import *
 
-def affichage(plateau) :
+def affichage_init(plateau) :
     l=plateau.Jeu.largeur
     h=plateau.Jeu.hauteur
     liste_cases = [] #stock les cases
@@ -20,4 +20,16 @@ def affichage(plateau) :
         for j in range(l) :
             liste_cases[h*i+j].grid(column=j,row=i)
     return principal
+
+def update(principal,plateau) :
+    k=0
+    for background in principal.winfo_children():
+        for case in background.winfo_children():
+            for label in case.winfo_children():
+                x = plateau.get_etat(k//plateau.Jeu.largeur,k%plateau.Jeu.largeur)
+                label.config(text = str(x))
+                k+=1
+    principal.update()
+
+
 
