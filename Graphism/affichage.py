@@ -1,0 +1,23 @@
+from tkinter import *
+
+def affichage(plateau) :
+    l=plateau.Jeu.largeur
+    h=plateau.Jeu.hauteur
+    liste_cases = [] #stock les cases
+    principal = Frame()
+    graphical_grid=[[0 for j in range(l)]for i in range(h) ] #stock les valeurs
+    for i in range(h) :
+        for j in range(l) :
+            graphical_grid[i][j]=plateau.get_etat(i,j)
+    background = Frame(principal,bg="#C0EDAC",height=400,width=400)
+    background.grid()
+    for i in range(h) :
+        for j in range(l) :
+            liste_cases.append(Frame(background,bg="#DCFDFF",height=400/h,width=400/l, bd=2, relief = SOLID))
+            x = graphical_grid[i][j]
+            Label(liste_cases[-1],width=int(44/h),height=int(20/l),bg="#DCFDFF",text=str(x),font={"Verdana", 40, "bold"}).pack(expand=YES)
+    for i in range(h) :
+        for j in range(l) :
+            liste_cases[h*i+j].grid(column=j,row=i)
+    return principal
+
