@@ -65,6 +65,9 @@ def demineur_suivant(i, j, plateau):
 def demineur_initialisation(plateau):
     liste_cases = [(i, j) for i in range(20) for j in range(20)]
     liste_cases.pop(0)
+    liste_cases.pop(0)
+    liste_cases.pop(3)
+    liste_cases.pop(3)
     for i in range(20) :
         for j in range(20) :
             plateau.surface[i][j].etat = 9 #9 => la case n'est pas encore révélée
