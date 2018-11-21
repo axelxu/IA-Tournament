@@ -65,9 +65,8 @@ def demineur_suivant(i, j, plateau):
 
 
 def demineur_initialisation(plateau):
-    liste_mines = []
-    liste_cases = [(i, j) for i in range(20) for j in range(20)].pop(0)
-
+    liste_cases = [(i, j) for i in range(20) for j in range(20)]
+    liste_cases.pop(0)
     for i in range(20) :
         for j in range(20) :
             plateau.surface[i][j].etat = 9 #9 => la case n'est pas encore révélée
@@ -78,12 +77,11 @@ def demineur_initialisation(plateau):
         liste_cases.pop(liste_cases.index((i, j)))
 
 
-
 def demineur_resultat(plateau):
     for i in range(20):
         for j in range(20):
             Case = plateau.surface[i][j]
-            if (Case.vide == False and Case.etat in range(9)):
+            if (Case.vide == False) and Case.etat in range(9):
                     return "Perdu"
     return "Gagné"
 
