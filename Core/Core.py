@@ -31,7 +31,7 @@ class Plateau : #on crée la matrice des cases
         self.surface = [[Case((i,j),True,0) for j in range(Jeu.largeur)] for i in range(Jeu.hauteur)]
         self.initialisation = lambda : Jeu.initialisation(self)
         self.termine = lambda : Jeu.termine(self)
-        self.est_valide = lambda action : Jeu.est_valide(self, action)
+        self.est_valide = lambda action : Jeu.est_valide(self, action, num_tour)
         self.next = lambda action, num_tour : Jeu.next(self, action, num_tour)
         self.resultat = Jeu.resultat
         self.message = Jeu.message
@@ -73,4 +73,8 @@ def jouer_2048():
     partie = Partie(jeu, ["Joueur_1"])
     partie.launch()
 
-jouer_2048()
+def jouer_Othello():
+    import Game.Othello as o
+    jeu = o.Othello()
+    partie = Partie(jeu, ["Joueur_1","Joueur_2"])
+    partie.launch()
