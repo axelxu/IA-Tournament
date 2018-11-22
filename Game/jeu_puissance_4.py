@@ -14,10 +14,10 @@ class puissance_4:
         return(self.terminaison_puissance_4(plateau)[0])
 
     def est_valide(self,plateau,action, num_tourK):
-            j= action
-            try:
-                j= int(j)
-                return(0<=j< self.largeur and plateau.surface[0][j].vide)
+        try :
+            j, joueur= action.split()
+            j= int(j)
+            return(0<=j< self.largeur and plateau.surface[0][j].vide)
         except:
             return(False)
 
@@ -73,6 +73,15 @@ class puissance_4:
                             break
                 if termine:
                     break
+        elif not termine:
+            for i in range(3,self.hauteur):#teste l'alignement suivant une diagonale gauche
+                for j in range(3, self.largeur):
+                    c= plateau.get_etat(i,j)
+                    if not (plateau.surface[i][j].vide and plateau.surface[i-1][j-1].vide and plateau.surface[i-2][j-2].vide and plateau.surface[i-3][j-3].vide):
+                        if plateau.get_etat(i-1,j-1)==c and plateau.get_etat(i-2,j-2)==c and plateau.get_etat(i-3,j-3)==c:
+                            termine =True
+                            gagnant=c
+                            break
         else:
             nombre_colonne_remplie=0
             for j in range(self.largeur):

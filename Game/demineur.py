@@ -5,6 +5,9 @@ class Demineur :
     def __init__(self):
         self.hauteur = 20
         self.largeur = 20
+        self.nb_joueurs = 1
+
+
     def initialisation(self, plateau):
         demineur_initialisation(plateau)
     def termine(self, plateau):

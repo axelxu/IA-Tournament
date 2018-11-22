@@ -41,6 +41,8 @@ class Plateau : #on crée la matrice des cases
 
     def set_case(self, i, j, vide, etat):
         self.surface[i][j] = Case((i,j),vide,etat)
+    def est_vide(self,i,j):
+        return self.surface[i][j].vide
 
     def afficher(self):
         t = [[] for i in range(len(self.surface))]
