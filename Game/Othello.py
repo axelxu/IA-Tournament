@@ -32,7 +32,7 @@ class Othello :
 
     def est_valide(self,plateau,action,num_tour):
         i,j = action.split()
-        i, j = int(i)-1, int(j)-1
+        i, j = int(i), int(j) #on commence à 0
         print(plateau.surface[i][j].vide)
         if not (0<=i<self.hauteur and 0<=j<self.largeur and plateau.surface[i][j].vide) :
            print("invalide direct")

@@ -27,8 +27,11 @@ class Dames :
         if not (dans_le_plateau):
             return False
         piece = plateau.get_etat(id, jd)
+        if piece != num_tour%2 +1 :
+            return False
         non_vide = not (plateau.est_vide(id, jd))
-        if not (non_vide):
+        arr_vide = plateau.est_vide(ia, ja)
+        if not (non_vide) or not(arr_vide):
             return False
         arrivee_accessible = accessible(plateau, piece, (id, jd), (ia, ja))
         print(arrivee_accessible)

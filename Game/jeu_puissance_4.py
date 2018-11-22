@@ -73,7 +73,7 @@ class puissance_4:
                             break
                 if termine:
                     break
-         elif not termine:
+        elif not termine:
             for i in range(3,self.hauteur):#teste l'alignement suivant une diagonale gauche
                 for j in range(3, self.largeur):
                     c= plateau.get_etat(i,j)
