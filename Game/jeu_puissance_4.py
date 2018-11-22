@@ -14,9 +14,12 @@ class puissance_4:
         return(self.terminaison_puissance_4(plateau)[0])
 
     def est_valide(self,plateau,action, num_tourK):
-        j, joueur= action.split()
-        j= int(j)
-        return(0<=j< self.largeur and plateau.surface[0][j].vide)
+        try
+            j, joueur= action.split()
+            j= int(j)
+            return(0<=j< self.largeur and plateau.surface[0][j].vide)
+        except:
+            return(False)
 
     def next(self,plateau,action,num_tour):
         j,joueur= action.split()
