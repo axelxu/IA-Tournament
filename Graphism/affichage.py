@@ -22,7 +22,7 @@ def affichage_init(plateau, THEME = {}) :
             liste_cases.append(Frame(background,bg="#DCFDFF",height=400/h,width=400/l, bd=1, relief = SOLID))
             x = graphical_grid[i][j]
             if THEME :
-                Label(liste_cases[-1],bg="#DCFDFF",image=THEME[int(x)]).pack(expand=YES)
+                Label(liste_cases[-1],bg="#DCFDFF",image=THEME[x]).pack(expand=YES)
             else :
                 Label(liste_cases[-1], bg="#DCFDFF", text = str(x)).pack(expand=YES)
     for i in range(h) :
@@ -37,7 +37,7 @@ def update(principal,plateau, THEME = {}) :
             for label in case.winfo_children():
                 x = plateau.get_etat(k//plateau.Jeu.largeur,k%plateau.Jeu.largeur)
                 if THEME :
-                    label.config(image=THEME[int(x)])
+                    label.config(image=THEME[x])
                 else :
                     label.config(text = str(x))
                 k+=1

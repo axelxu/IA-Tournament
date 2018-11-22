@@ -9,7 +9,7 @@ class Demineur :
         demineur_initialisation(plateau)
     def termine(self, plateau):
         return terminaison_demineur(plateau)
-    def est_valide(self, plateau, action):
+    def est_valide(self, plateau, action, num_tour):
         i, j = map(int, action.split())
         return i in range(20) and j in range(20) and plateau.surface[i][j].etat == 9
     def next(self, plateau, action, num_tour):

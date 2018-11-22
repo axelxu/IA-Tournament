@@ -15,7 +15,7 @@ class Morpion :
         return(terminaison_morpion(plateau))
 
 
-    def est_valide(self,plateau,action):
+    def est_valide(self,plateau,action, num_tour):
         try :
             i,j = action.split()
         except :

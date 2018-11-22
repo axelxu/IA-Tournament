@@ -11,7 +11,7 @@ class Partie :
         while not(self.plateau.termine()):
             self.plateau.message(num_tour, self.joueurs)
             action = input()
-            while not(self.plateau.est_valide(action)):
+            while not(self.plateau.est_valide(action, num_tour)):
                 print("Valide svp")
                 action = input()
             self.plateau.next(action, num_tour)
@@ -32,7 +32,7 @@ class Plateau : #on crée la matrice des cases
         self.surface = [[Case((i,j),True,0) for j in range(Jeu.largeur)] for i in range(Jeu.hauteur)]
         self.initialisation = lambda : Jeu.initialisation(self)
         self.termine = lambda : Jeu.termine(self)
-        self.est_valide = lambda action : Jeu.est_valide(self, action)
+        self.est_valide = lambda action, num_tour : Jeu.est_valide(self, action, num_tour)
         self.next = lambda action, num_tour : Jeu.next(self, action, num_tour)
         self.resultat = Jeu.resultat
         self.message = Jeu.message
@@ -42,6 +42,9 @@ class Plateau : #on crée la matrice des cases
 
     def set_case(self, i, j, vide, etat):
         self.surface[i][j] = Case((i,j),vide,etat)
+
+    def est_vide(self, i, j):
+        return self.surface[i][j].vide
 
     def afficher(self):
         t = [[] for i in range(len(self.surface))]
