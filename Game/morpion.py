@@ -38,7 +38,7 @@ class Morpion :
         print(joueurs[n_tour%self.nb_joueurs]+ ", joues !")
         return joueurs[n_tour%self.nb_joueurs]+ ", joues !"
 
-    THEME = {0: "/Images/morpion/empty.gif", 1: "/Images/morpion/cercle.gif", 2: "/Images/morpion/croix.gif"}
+    THEME = {0: "/Images/morpion/empty2.gif", 1: "/Images/morpion/rond2.gif", 2: "/Images/morpion/croix3.gif"}
 
 def terminaison_morpion(plateau) :
     for i in range(3) :
