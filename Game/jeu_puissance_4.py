@@ -25,14 +25,14 @@ class puissance_4:
         trouve=False #designe si on a trouvé une case vide dans la colonne
         while i>=0 and not trouve:
             if plateau.surface[i][j].vide:
-                plateau.set_case(i,j,True,joueur)
+                plateau.set_case(i,j,True,int(joueur))
                 trouve= True
                 plateau.surface[i][j].vide=False
             else:
                 i-=1
 
     def message(self,n_tours, joueurs):
-        print(joueurs[(n_tours) % self.nb_joueurs], ', A ton tour')
+        return joueurs[(n_tours) % self.nb_joueurs]+ ', A ton tour'
 
 
     def terminaison_puissance_4(self,plateau):
