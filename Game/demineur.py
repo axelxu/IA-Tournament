@@ -169,7 +169,11 @@ def choix_case_ia(plateau):
     m, v = pivot_gauss(matrix, vector)
     n, p = len(m), len (m[0])
     liste_proba = [0]*p
-
+    plateau_init = [[9]*20]*20
+    
+    if [[plateau.surface[i][j].etat for i in range(20)] for j in range(20)] == plateau_init:
+        return (0, 0)
+    
     for k in range(n):
         s = sum(m[k])
         if s == v[k]:
