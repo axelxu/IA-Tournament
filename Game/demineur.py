@@ -125,4 +125,80 @@ def construire_matrice(plateau):
         for case in voisinages[(i, j)] :
             matrix[k][set_cases.index(case)] = 1
 
-    return matrix, vector
+    return matrix, vector, set_cases
+
+
+def arg_max(t):
+    m = max(t)
+    for i in range(len(t)):
+        if t[i] == m:
+            return i
+
+
+def pivot_gauss(matrix, vector):
+    m = matrix
+    v = vector
+    n = len(m)
+    p = len(m[0])
+
+    h = 0
+    k = 0
+
+    while h <= n-1 and k <= p-1:
+        i_max = arg_max([m[i][k] for i in range(h, n)])
+        if m[i_max][k] == 0:
+            k += 1
+        else:
+            m[h], m[i_max] = m[i_max], m[h]
+            v[h], v[i_max] = v[i_max], v[h]
+            for i in range(h+1, n):
+                f = m[i][k]/m[h][k]
+                m[i][k] = 0
+                for j in range(k+1, p):
+                    m[i][j] = m[i][j] - m[h][j] * f
+                v[i] = v[i] - v[h] * f
+            h += 1
+            k += 1
+
+    return m, v
+
+
+def choix_case_ia(plateau):
+    liste_mines = []
+    matrix, vector, set_cases = construire_matrice(plateau)
+    m, v = pivot_gauss(matrix, vector)
+    n, p = len(m), len (m[0])
+    liste_proba = [0]*p
+
+    for k in range(n):
+        s = sum(m[k])
+        if s == v[k]:
+            for q in range(p):
+                if m[k][q] == 1 and not set_cases[q] in liste_mines:
+                    liste_mines.append(set_cases[q])
+                    liste_proba[q] = 1
+        else:
+            upper_bound = sum([1 for x in m[k] if x == 1])
+            lower_bound = sum([-1 for x in m[k] if x == -1])
+
+            if not s in [upper_bound, lower_bound]:
+                for q in range(p):
+                    liste_proba[q] += m[k][q] * v[k] / s
+
+            elif s == upper_bound:
+                for q in range(p):
+                    if m[k][q] == 1 and not set_cases[q] in liste_mines:
+                        liste_mines.append(set_cases[q])
+                        liste_proba[q] = 1
+                    if m[k][q] == -1:
+                        liste_proba[q] = 0
+
+            elif s == lower_bound:
+                for q in range(p):
+                    if m[k][q] == -1 and not set_cases[q] in liste_mines:
+                        liste_mines.append(set_cases[q])
+                        liste_proba[q] = 1
+                    if m[k][q] == 1:
+                        liste_proba[q] = 0
+
+    return set_cases[liste_proba.index(min([x for x in liste_proba if x != 1]))]
