@@ -8,6 +8,9 @@ class Dames :
 
 
     def initialisation(self, plateau):
+        for i in range(self.hauteur):
+            for j in range(self.largeur):
+                plateau.set_case(i,j,True, 0)
         for i in range(4):
             for j in range(self.largeur):
                 if (i+j)%2 :

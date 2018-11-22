@@ -7,7 +7,9 @@ class puissance_4:
         self.THEME=THEME
 
     def initialisation(self,plateau):
-        pass
+        for i in range(self.hauteur):
+            for j in range(self.largeur):
+                plateau.set_case(i,j,True, 0)
 
     def termine(self,plateau):
 

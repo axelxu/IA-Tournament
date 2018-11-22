@@ -1,16 +1,23 @@
 from tkinter import *
 import Core.Core as c
 import os
-import IAs.IA_test_puissance_4 as ia
-ias = [ia, ia]
+
+import IAs.IA_test_puissance_4 as ia_p4
+import IAs.IA_opti_morpion as ia_morpion
+import IAs.Ia_dames as ia_dames
+import IAs.ia_2048 as ia_2048
+IAS = {"morpion" : ia_morpion, "puissance_4" : ia_p4, "dames" : ia_dames, "2048":ia_2048}
 dir = os.getcwd()
 import time
 
 global pile
 pile = []
-tour_humain = True
+
 
 def test_click(event):
+    if mode.get() !=0:
+        ia = IAS[nom_du_jeu.get()]
+        ias = [ia, ia]
     global pile
     global root
     if mode.get() == 0 :
@@ -38,11 +45,12 @@ def test_click(event):
 
     elif jeu.nb_joueurs == 2 :
         if mode.get() == 1 :
+            agi = False
             s = str(event.widget)
             action = s[-s[::-1].index("."):]
             print(action)
             i, j = action.split()
-            if nom_du_jeu.get() in ["demineur", "morpion", "othello"]:
+            if nom_du_jeu.get() in ["demineur", "morpion", "othello" ]:
                 agir(action)
             elif nom_du_jeu.get() == "puissance_4":
                 agir(j + " " + str(num_tour % 2 + 1))
@@ -50,14 +58,15 @@ def test_click(event):
                 pile.append(i + j)
                 print(pile)
                 if len(pile) == 2:
-                    agir(pile[0] + " " + pile[1])
+                    if partie.plateau.est_valide(pile[0] + " " + pile[1], num_tour):
+                        agi = True
+                        agir(pile[0] + " " + pile[1])
                     pile = []
-
-
-            action = ias[0].jouer(partie.plateau, num_tour)
-            print(action)
-            print(partie.plateau.est_valide(action, num_tour))
-            agir(action)
+            if agi :
+                action = ias[0].jouer(partie.plateau, num_tour)
+                print(action)
+                print(partie.plateau.est_valide(action, num_tour))
+                agir(action)
 
 
 
@@ -153,6 +162,14 @@ def agir(action):
     if partie.plateau.termine() :
         texte.set(partie.plateau.resultat(partie.plateau))
 
+def recommencer():
+    print("restart")
+    global num_tour
+    partie.plateau.initialisation()
+    update(plateau_graphique, partie.plateau, THEME)
+    texte.set(partie.plateau.message(num_tour, partie.joueurs))
+    partie.plateau.afficher()
+    num_tour = 0
 
 
 def main():
@@ -160,7 +177,7 @@ def main():
     root = Tk()
     side = Frame(root)
     saisie = Frame(side)
-
+    restart = Button(side, text = "Nouvelle Partie", command = recommencer)
     global mode
     global nom_du_jeu
     global jeu
@@ -259,6 +276,7 @@ def main():
     plateau_graphique.grid(row = 0, column = 0)
     entree.grid(column=0, row = 0)
     jouer.grid(column=0, row = 1)
+    restart.grid(column = 0, row = 2)
     saisie.grid(row = 1, column = 0)
     side.grid(row = 0, column = 1)
     texte.set(partie.plateau.message(num_tour, partie.joueurs))

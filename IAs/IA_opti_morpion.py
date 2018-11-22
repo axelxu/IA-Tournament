@@ -1,5 +1,10 @@
 import random as rd
-def jouer(plateau) :
+
+def jouer(plateau, n):
+    choix = jouer_partiel(plateau)
+    return str(choix[0])+" "+str(choix[1])
+
+def jouer_partiel(plateau) :
     l=[]
     for i in range(3) :
         for j in range(3) :
