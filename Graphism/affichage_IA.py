@@ -1,19 +1,19 @@
 from tkinter import *
-import os
-from PIL import Image, ImageTk
 import Core.Core as c
-import Game.morpion as m
 import os
-#ias = [zertyu,ertyui]
+import IAs.IA_test_puissance_4 as ia
+ias = [ia, ia]
 dir = os.getcwd()
 import time
 
+global pile
 pile = []
 tour_humain = True
 
 def test_click(event):
+    global pile
+    global root
     if mode.get() == 0 :
-        global pile
         s = str(event.widget)
         action = s[-s[::-1].index("."):]
         print(action)
@@ -31,14 +31,13 @@ def test_click(event):
 
 
     elif jeu.nb_joueurs == 1 and mode == 1:
-        while not(partie.plateau.termine()):
-            action = ias[0].jouer(partie.plateau)
+        if not(partie.plateau.termine()):
+            action = ias[0].jouer(partie.plateau, num_tour)
             agir(action)
-            time.sleep(0.1)
+            root.after(10, lambda: test_click(event))
 
     elif jeu.nb_joueurs == 2 :
         if mode.get() == 1 :
-            global pile
             s = str(event.widget)
             action = s[-s[::-1].index("."):]
             print(action)
@@ -54,19 +53,19 @@ def test_click(event):
                     agir(pile[0] + " " + pile[1])
                     pile = []
 
-            action = ias[0].jouer(partie.plateau)
+
+            action = ias[0].jouer(partie.plateau, num_tour)
+            print(action)
+            print(partie.plateau.est_valide(action, num_tour))
             agir(action)
 
 
+
         elif mode.get() == 2 :
-            while not (partie.plateau.termine()):
-                action = ias[0].jouer(partie.plateau)
+            if not (partie.plateau.termine()):
+                action = ias[num_tour%2].jouer(partie.plateau, num_tour)
                 agir(action)
-                time.sleep(0.2)
-                if not (partie.plateau.termine())
-                    action = ias[1].jouer(partie.plateau)
-                    agir(action)
-                    time.sleep(0.2)
+                root.after(10, lambda : test_click(event))
 
 
 
@@ -157,6 +156,7 @@ def agir(action):
 
 
 def main():
+    global root
     root = Tk()
     side = Frame(root)
     saisie = Frame(side)
