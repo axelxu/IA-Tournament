@@ -27,7 +27,7 @@ def affichage_init(plateau, THEME = {}) :
                 Label(liste_cases[-1], bg="#DCFDFF", text = str(x)).pack(expand=YES)
     for i in range(h) :
         for j in range(l) :
-            liste_cases[h*i+j].grid(column=j,row=i)
+            liste_cases[l*i+j].grid(column=j,row=i)
     return principal
 
 def update(principal,plateau, THEME = {}) :
@@ -63,54 +63,58 @@ def importe(nom):
     elif nom == "2048":
         from Game.jeu_2048 import Jeu_2048
         return Jeu_2048()
-    elif nom == "Othello":
+    elif nom == "othello":
         from Game.Othello import Othello
         return Othello()
     else :
         print("Choisis un jeu qui existe...")
 
-
-def parametres(root, jeu):
-    fond = Frame(root)
-    vals = ['A', 'B', 'C']
-    etiqs = ['trop chaud', 'trop froid', 'correct']
-    varGr = StringVar()
-    varGr.set(vals[1])
-    for i in range(3):
-        b = Radiobutton(fond, variable=varGr, text=etiqs[i], value=vals[i])
-        b.pack(side='left', expand=1)
-    return fond
-
-
 def main():
     root = Tk()
-    nom_du_jeu = "dames"
-    jeu = importe(nom_du_jeu)
-    settings = parametres(root, jeu)
-    partie = c.Partie(jeu, [])
-    settings.grid(row = 1, column = 1)
+    saisie = Frame(root)
+    global nom_du_jeu
+    global jeu
+    nom_du_jeu = StringVar()
+    nom_du_jeu.set("dames")
+    jeu = importe(nom_du_jeu.get())
+
+    def parametres(root, jeu):
+        fond = Frame(root)
+        vals = ['dames', 'demineur', '2048', 'puissance_4', 'morpion', 'echecs', 'othello']
+        etiqs = ['Dames', 'Démineur', '2048', 'Puissance 4', 'Morpion', 'Echecs', 'Othello']
+        for i in range(7):
+            b = Radiobutton(fond, variable=nom_du_jeu, text=etiqs[i], value=vals[i], command = lambda : changer_jeu(nom_du_jeu.get()))
+            b.pack(side='left', expand=1)
+        return fond
+
+    settings = parametres(saisie, nom_du_jeu.get())
+
+    global partie
+    joueurs = ["Alice", "Bob"]
+    partie = c.Partie(jeu, joueurs)
+    settings.grid(row = 3, column = 0)
     partie.plateau.initialisation()
     partie.plateau.afficher()
 
     global num_tour
     num_tour = 0
-
+    global THEME
     THEME = {}
     try :
         for clef, valeur in partie.plateau.Jeu.THEME.items():
-            #image = Image.open(dir+valeur)
             photo = PhotoImage(file = dir+valeur)#ImageTk.PhotoImage(image)
             THEME[clef] = photo
     except :
         print("Pas de Thème configuré")
     print(THEME)
-    saisie = Frame(root)
+
     texte = StringVar()
     message = Label(saisie, textvariable = texte)
     message.grid(column=0, row = 2)
     action = StringVar(saisie)
     entree = Entry(saisie, textvariable=action, width=30)
-
+    global plateau_graphique
+    plateau_graphique = affichage_init(partie.plateau, THEME)
 
     def agir():
         global num_tour
@@ -130,15 +134,28 @@ def main():
 
         print(entree.get())
 
+    def changer_jeu(nom_jeu):
+        global jeu
+        global partie
+        global plateau_graphique
+        global THEME
+        plateau_graphique.destroy()
+        jeu = importe(nom_jeu)
+        partie = c.Partie(jeu, joueurs)
+        partie.plateau.initialisation()
+        THEME = {}
+        try:
+            for clef, valeur in partie.plateau.Jeu.THEME.items():
+                photo = PhotoImage(file=dir + valeur)  # ImageTk.PhotoImage(image)
+                THEME[clef] = photo
+        except:
+            print("Pas de Thème configuré")
+        print(THEME)
+        plateau_graphique = affichage_init(partie.plateau, THEME)
+        plateau_graphique.grid(row = 0, column = 0)
+        partie.plateau.afficher()
     jouer = Button(saisie, text = "Jouer", command=agir)
 
-
-
-
-
-    #entree.bind("<Return>", agir)
-
-    plateau_graphique = affichage_init(partie.plateau, THEME)
     plateau_graphique.grid(row = 0, column = 0)
     entree.grid(column=0, row = 0)
     jouer.grid(column=0, row = 1)
