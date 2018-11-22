@@ -4,14 +4,15 @@ from PIL import Image, ImageTk
 import Core.Core as c
 import Game.morpion as m
 import os
-
+#ias = [zertyu,ertyui]
 dir = os.getcwd()
+import time
 
 pile = []
 tour_humain = True
 
 def test_click(event):
-    if tour_humain :
+    if mode.get() == 0 :
         global pile
         s = str(event.widget)
         action = s[-s[::-1].index("."):]
@@ -27,6 +28,50 @@ def test_click(event):
             if len(pile) == 2:
                 agir(pile[0]+" "+pile[1])
                 pile = []
+
+
+    elif jeu.nb_joueurs == 1 and mode == 1:
+        while not(partie.plateau.termine()):
+            action = ias[0].jouer(partie.plateau)
+            agir(action)
+            time.sleep(0.1)
+
+    elif jeu.nb_joueurs == 2 :
+        if mode.get() == 1 :
+            global pile
+            s = str(event.widget)
+            action = s[-s[::-1].index("."):]
+            print(action)
+            i, j = action.split()
+            if nom_du_jeu.get() in ["demineur", "morpion", "othello"]:
+                agir(action)
+            elif nom_du_jeu.get() == "puissance_4":
+                agir(j + " " + str(num_tour % 2 + 1))
+            else:
+                pile.append(i + j)
+                print(pile)
+                if len(pile) == 2:
+                    agir(pile[0] + " " + pile[1])
+                    pile = []
+
+            action = ias[0].jouer(partie.plateau)
+            agir(action)
+
+
+        elif mode.get() == 2 :
+            while not (partie.plateau.termine()):
+                action = ias[0].jouer(partie.plateau)
+                agir(action)
+                time.sleep(0.2)
+                if not (partie.plateau.termine())
+                    action = ias[1].jouer(partie.plateau)
+                    agir(action)
+                    time.sleep(0.2)
+
+
+
+
+
 
 
 def affichage_init(plateau, THEME = {}) :
@@ -131,7 +176,7 @@ def main():
             vals = [0, 1]
             etiqs = ['Humain', 'IA']
             for i in range(2) :
-                b = Radiobutton(fond, variable=nom_du_jeu, text=etiqs[i], value=vals[i])
+                b = Radiobutton(fond, variable=mode, text=etiqs[i], value=vals[i])
                 b.pack(side='left', expand=1)
         if jeu.nb_joueurs == 2:
             vals = [0, 1, 2]
