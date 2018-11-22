@@ -1,18 +1,19 @@
 from tkinter import *
-import os
-from PIL import Image, ImageTk
 import Core.Core as c
-import Game.morpion as m
 import os
-
+import IAs.IA_test_puissance_4 as ia
+ias = [ia, ia]
 dir = os.getcwd()
+import time
 
+global pile
 pile = []
 tour_humain = True
 
 def test_click(event):
-    if tour_humain :
-        global pile
+    global pile
+    global root
+    if mode.get() == 0 :
         s = str(event.widget)
         action = s[-s[::-1].index("."):]
         print(action)
@@ -27,6 +28,49 @@ def test_click(event):
             if len(pile) == 2:
                 agir(pile[0]+" "+pile[1])
                 pile = []
+
+
+    elif jeu.nb_joueurs == 1 and mode == 1:
+        if not(partie.plateau.termine()):
+            action = ias[0].jouer(partie.plateau, num_tour)
+            agir(action)
+            root.after(10, lambda: test_click(event))
+
+    elif jeu.nb_joueurs == 2 :
+        if mode.get() == 1 :
+            s = str(event.widget)
+            action = s[-s[::-1].index("."):]
+            print(action)
+            i, j = action.split()
+            if nom_du_jeu.get() in ["demineur", "morpion", "othello"]:
+                agir(action)
+            elif nom_du_jeu.get() == "puissance_4":
+                agir(j + " " + str(num_tour % 2 + 1))
+            else:
+                pile.append(i + j)
+                print(pile)
+                if len(pile) == 2:
+                    agir(pile[0] + " " + pile[1])
+                    pile = []
+
+
+            action = ias[0].jouer(partie.plateau, num_tour)
+            print(action)
+            print(partie.plateau.est_valide(action, num_tour))
+            agir(action)
+
+
+
+        elif mode.get() == 2 :
+            if not (partie.plateau.termine()):
+                action = ias[num_tour%2].jouer(partie.plateau, num_tour)
+                agir(action)
+                root.after(10, lambda : test_click(event))
+
+
+
+
+
 
 
 def affichage_init(plateau, THEME = {}) :
@@ -112,6 +156,7 @@ def agir(action):
 
 
 def main():
+    global root
     root = Tk()
     side = Frame(root)
     saisie = Frame(side)
@@ -131,7 +176,7 @@ def main():
             vals = [0, 1]
             etiqs = ['Humain', 'IA']
             for i in range(2) :
-                b = Radiobutton(fond, variable=nom_du_jeu, text=etiqs[i], value=vals[i])
+                b = Radiobutton(fond, variable=mode, text=etiqs[i], value=vals[i])
                 b.pack(side='left', expand=1)
         if jeu.nb_joueurs == 2:
             vals = [0, 1, 2]
