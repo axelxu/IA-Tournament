@@ -15,7 +15,7 @@ class Jeu_2048 :
         grille = plateau_to_grille(self, plateau)
         return (is_game_over(grille))
 
-    def est_valide(self,plateau,action):
+    def est_valide(self,plateau,num_tour):
         grille = plateau_to_grille(self, plateau)
         A = copy.deepcopy(grille)
         if action == "h" :

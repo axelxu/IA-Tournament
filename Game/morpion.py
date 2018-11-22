@@ -15,7 +15,7 @@ class Morpion :
         return(terminaison_morpion(plateau))
 
 
-    def est_valide(self,plateau,action):
+    def est_valide(self,plateau,action,num_tour):
         try :
             i,j = action.split()
         except :
@@ -26,7 +26,7 @@ class Morpion :
 
     def next(self,plateau,action, num_tour):
         i,j = action.split()
-        i, j = int(i), int(j)
+        i, j = int(i)+1, int(j)+1
         plateau.set_case(i,j,False, 1+num_tour%self.nb_joueurs)
 
 

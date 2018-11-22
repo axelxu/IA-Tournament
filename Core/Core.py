@@ -73,4 +73,12 @@ def jouer_2048():
     partie = Partie(jeu, ["Joueur_1"])
     partie.launch()
 
-jouer_2048()
+
+
+def jouer_Othello():
+    import Game.Othello as o
+    jeu = o.Othello()
+    partie = Partie(jeu, ["Joueur_1","joueur 2"])
+    partie.launch()
+
+jouer_Othello()
