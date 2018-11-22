@@ -4,6 +4,7 @@ class puissance_4:
         self.largeur=7
         self.hauteur=6
         self.nb_joueurs=2
+        self.THEME=THEME
 
     def initialisation(self,plateau):
         pass
@@ -83,7 +84,7 @@ class puissance_4:
     def resultat(self,plateau):
         return (self.terminaison_puissance_4(plateau)[1])
 
-
+THEME = {0 : "/Images/puissance4/vide.gif", 1 : "/Images/puissance4/rond_jaune.gif", 2 : "/Images/puissance4/rond_rouge.gif" }
 
 
 
