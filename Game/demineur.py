@@ -171,7 +171,7 @@ def choix_case_ia(plateau):
     liste_proba = [0]*p
     plateau_init = [[9]*20]*20
     
-    if plateau == plateau_init:
+    if [[plateau.surface[i][j].etat for i in range(20)] for j in range(20)] == plateau_init:
         return (0, 0)
     
     for k in range(n):
