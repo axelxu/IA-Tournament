@@ -8,14 +8,17 @@ class Morpion :
 
 
     def initialisation(self, plateau):
+        """Empty the plate and set the correct configuration"""
         pass
 
 
     def termine(self,plateau):
+        """Returns True when a player has won or no more action is possible"""
         return(terminaison_morpion(plateau))
 
 
     def est_valide(self,plateau,action, num_tour):
+        """Returns the boolean corresponding to "is the move action acceptable in plateau with respect to the games rules" """
         try :
             i,j = action.split()
         except :
@@ -25,6 +28,7 @@ class Morpion :
 
 
     def next(self,plateau,action, num_tour):
+        """Modify the plate with regard to an action"""
         i,j = action.split()
         i, j = int(i), int(j)
         plateau.set_case(i,j,False, 1+num_tour%self.nb_joueurs)

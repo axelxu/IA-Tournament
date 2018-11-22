@@ -1,6 +1,7 @@
 import random as rd
 
 def jouer(plateau, num_tour):
+    """Returns a valid move in plateau"""
     joueur = num_tour%2 +1
     rdi = list(range(plateau.Jeu.hauteur))
     rd.shuffle(rdi)

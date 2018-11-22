@@ -1,6 +1,7 @@
 import random as rd
 import Game.jeu_2048 as game
 def jouer(plateau, num_tour) :
+    """Returns a valid move in plateau"""
     l=[]
     for j in range(7) :
         if plateau.est_vide(0,j) :

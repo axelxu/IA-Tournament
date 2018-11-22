@@ -7,15 +7,17 @@ class puissance_4:
         self.THEME=THEME
 
     def initialisation(self,plateau):
+        """Empty the plate and set the correct configuration"""
         for i in range(self.hauteur):
             for j in range(self.largeur):
                 plateau.set_case(i,j,True, 0)
 
     def termine(self,plateau):
-
+        """Returns True when a player has won or no more action is possible"""
         return(self.terminaison_puissance_4(plateau)[0])
 
-    def est_valide(self,plateau,action, num_tourK):
+    def est_valide(self,plateau,action, num_tour):
+        """Returns the boolean corresponding to "is the move action acceptable in plateau with respect to the games rules" """
         try :
             j, joueur= action.split()
             j= int(j)
@@ -24,6 +26,7 @@ class puissance_4:
             return(False)
 
     def next(self,plateau,action,num_tour):
+        """Modify the plate with regard to an action"""
         j,joueur= action.split()
         j=int(j)
         i= self.hauteur-1

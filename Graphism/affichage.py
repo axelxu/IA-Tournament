@@ -7,6 +7,7 @@ import os
 
 dir = os.getcwd()
 def affichage_init(plateau, THEME = {}) :
+    """Returns a Tkinter widget in which the game is displayed with THEME"""
     l=plateau.Jeu.largeur
     h=plateau.Jeu.hauteur
     liste_cases = [] #stock les cases
@@ -31,6 +32,7 @@ def affichage_init(plateau, THEME = {}) :
     return principal
 
 def update(principal,plateau, THEME = {}) :
+    """Modify the content of a given widget containing the representation of a plate"""
     k=0
     for background in principal.winfo_children():
         for case in background.winfo_children():
@@ -45,6 +47,7 @@ def update(principal,plateau, THEME = {}) :
 
 
 def main(jeu, joueurs):
+    """Initialize the interactive window and lauch the games"""
     partie = c.Partie(jeu, joueurs)
     partie.plateau.initialisation()
     partie.plateau.afficher()

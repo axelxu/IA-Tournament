@@ -15,6 +15,7 @@ pile = []
 
 
 def test_click(event):
+    """Allows user to interact in a graphical way with the game"""
     if mode.get() !=0:
         ia = IAS[nom_du_jeu.get()]
         ias = [ia, ia]
@@ -83,6 +84,7 @@ def test_click(event):
 
 
 def affichage_init(plateau, THEME = {}) :
+    """Returns a Tkinter widget in which the game is displayed with THEME"""
     l=plateau.Jeu.largeur
     h=plateau.Jeu.hauteur
     liste_cases = [] #stock les cases
@@ -108,6 +110,7 @@ def affichage_init(plateau, THEME = {}) :
     return principal
 
 def update(principal,plateau, THEME = {}) :
+    """Modify the content of a given widget containing the representation of a plate"""
     k=0
     for background in principal.winfo_children():
         for case in background.winfo_children():
@@ -121,7 +124,7 @@ def update(principal,plateau, THEME = {}) :
     principal.update()
 
 def importe(nom):
-
+    """Returns an instance of th game named "nom" """
     if nom == "dames":
         from Game.dames import Dames
         return Dames()
@@ -147,6 +150,7 @@ def importe(nom):
         print("Choisis un jeu qui existe...")
 
 def agir(action):
+    """Makes the repercusion of an action in the plateau"""
     global num_tour
     if not(partie.plateau.termine()):
         if partie.plateau.est_valide(action, num_tour):
@@ -163,6 +167,7 @@ def agir(action):
         texte.set(partie.plateau.resultat(partie.plateau))
 
 def recommencer():
+    """Reinitialize the game"""
     print("restart")
     global num_tour
     partie.plateau.initialisation()
@@ -173,6 +178,7 @@ def recommencer():
 
 
 def main():
+    """Set the window with parameters and interactions"""
     global root
     root = Tk()
     side = Frame(root)

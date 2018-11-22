@@ -1,6 +1,7 @@
 import random as rd
 
 def jouer(plateau, n):
+    """Returns a valid move in plateau"""
     choix = jouer_partiel(plateau)
     return str(choix[0])+" "+str(choix[1])
 

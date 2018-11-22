@@ -8,6 +8,7 @@ class Dames :
 
 
     def initialisation(self, plateau):
+        """Empty the plate and set the correct configuration"""
         for i in range(self.hauteur):
             for j in range(self.largeur):
                 plateau.set_case(i,j,True, 0)
@@ -19,9 +20,11 @@ class Dames :
                     plateau.set_case(self.hauteur-1-i, j, False, 1)
 
     def termine(self,plateau):
+        """Returns True when a player has won or no more action is possible"""
         return False
 
     def est_valide(self, plateau, action, num_tour):
+        """Returns the boolean corresponding to "is the move action acceptable in plateau with respect to the games rules" """
         dep, arr = action.split()
         id, jd = int(dep[0]), int(dep[1])
         ia, ja = int(arr[0]), int(arr[1])
@@ -41,6 +44,7 @@ class Dames :
         return arrivee_accessible
 
     def next(self, plateau, action, num_tour):
+        """Modify the plate with regard to an action"""
         dep, arr = action.split()
         id, jd = int(dep[0]), int(dep[1])
         ia, ja = int(arr[0]), int(arr[1])
@@ -50,14 +54,16 @@ class Dames :
             plateau.set_case((ia+id)//2, (ja+jd)//2, True, 0)
 
     def resultat(self, plateau):
+        """Return the winner for a 2 players game"""
         return ("axel")
 
     def message(self, n_tour, joueurs):
+        """Allows the game to communicate with user"""
         s = "Aux " + ["blancs", "noirs"][n_tour % self.nb_joueurs] + " de jouer"
         print(s)
         return s
 
-    THEME = {}
+    THEME = {} #THEME is a collection of images to display instead of numbers in the grid
     for i in range(3):
             THEME[i] = "/Images/dames/" + str(i) + ".gif"
 

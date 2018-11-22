@@ -9,17 +9,29 @@ class Demineur :
 
 
     def initialisation(self, plateau):
+        """Empty the plate and set the correct configuration"""
         demineur_initialisation(plateau)
+
+
     def termine(self, plateau):
+        """Returns True when a player has won or no more action is possible"""
         return terminaison_demineur(plateau)
+
+
     def est_valide(self, plateau, action, num_tour):
+        """Returns the boolean corresponding to "is the move action acceptable in plateau with respect to the games rules" """
         i, j = map(int, action.split())
         return i in range(20) and j in range(20) and plateau.surface[i][j].etat == 9
+
     def next(self, plateau, action, num_tour):
+        """Modify the plate with regard to an action"""
         i, j = map(int, action.split())
         demineur_suivant(i, j, plateau)
+
     def resultat(self, plateau):
         return demineur_resultat(plateau)
+
+
     def message(self, a,b ):
         print("Entrer une case : i j")
         return "Entrer une case : i j"

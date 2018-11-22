@@ -8,6 +8,7 @@ class Echec :
 
 
     def initialisation(self, plateau):
+        """Empty the plate and set the correct configuration"""
         for i in range(8):
             for j in range(8):
                 plateau.set_case(i, j, True, "")
@@ -19,10 +20,12 @@ class Echec :
             plateau.set_case(0,i,False, piece+"N")
 
     def termine(self,plateau):
+        """Returns True when a player has won or no more action is possible"""
         return(terminaison_morpion(plateau))
 
 
     def est_valide(self,plateau,action, num_tour):
+        """Returns the boolean corresponding to "is the move action acceptable in plateau with respect to the games rules" """
         dep,arr = action.split()
         id, jd = int(dep[0]), int(dep[1])
         ia, ja = int(arr[0]), int(arr[1])
@@ -40,6 +43,7 @@ class Echec :
 
 
     def next(self,plateau,action, num_tour):
+        """Modify the plate with regard to an action"""
         dep,arr = action.split()
         id, jd = int(dep[0]), int(dep[1])
         ia, ja = int(arr[0]), int(arr[1])

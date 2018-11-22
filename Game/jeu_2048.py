@@ -8,14 +8,17 @@ class Jeu_2048 :
         self.nb_joueurs = 1
 
     def initialisation(self, plateau):
+        """Empty the plate and set the correct configuration"""
         grille = init_game(4)
         grille_to_plateau(self, grille,plateau)
 
     def termine(self, plateau):
+        """Returns True when a player has won or no more action is possible"""
         grille = plateau_to_grille(self, plateau)
         return (is_game_over(grille))
 
     def est_valide(self,plateau,action, num_tour):
+        """Returns the boolean corresponding to "is the move action acceptable in plateau with respect to the games rules" """
         grille = plateau_to_grille(self, plateau)
         A = copy.deepcopy(grille)
         if action == "h" :
@@ -35,6 +38,7 @@ class Jeu_2048 :
 
 
     def next(self, plateau, action, num_tour):
+        """Modify the plate with regard to an action"""
         grille = plateau_to_grille(self, plateau)
         if action == "h" :
             grille = move_grid_up(grille)

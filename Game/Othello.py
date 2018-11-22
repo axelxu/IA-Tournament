@@ -8,18 +8,21 @@ class Othello :
 
 
     def initialisation (self,plateau):
+        """Empty the plate and set the correct configuration"""
         plateau.set_case(4,4,False, 1)
         plateau.set_case(3,3,False, 1)
         plateau.set_case(3,4,False, 2)
         plateau.set_case(4,3,False, 2)
 
     def termine(self, plateau):
+        """Returns True when a player has won or no more action is possible"""
         if len(get_empty_tiles_positions(self,plateau)) == 0 :
             return (True)
         else :
             return (False)
 
     def next(self, plateau, action, num_tour):
+        """Modify the plate with regard to an action"""
         i,j = action.split()
         i, j = int(i), int(j)
         plateau.set_case(i,j,False, 1+num_tour%self.nb_joueurs)
