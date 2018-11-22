@@ -72,7 +72,7 @@ def main(jeu, joueurs):
     def agir():
         global num_tour
         if not(partie.plateau.termine()):
-            if partie.plateau.est_valide(action.get()):
+            if partie.plateau.est_valide(action.get(), num_tour):
                 partie.plateau.next(action.get(), num_tour)
                 update(plateau_graphique, partie.plateau, THEME)
                 texte.set(partie.plateau.message(num_tour, partie.joueurs))
