@@ -27,7 +27,7 @@ def affichage_init(plateau, THEME = {}) :
                 Label(liste_cases[-1], bg="#DCFDFF", text = str(x)).pack(expand=YES)
     for i in range(h) :
         for j in range(l) :
-            liste_cases[h*i+j].grid(column=j,row=i)
+            liste_cases[l*i+j].grid(column=j,row=i)
     return principal
 
 def update(principal,plateau, THEME = {}) :
