@@ -15,7 +15,7 @@ class Morpion :
         return(terminaison_morpion(plateau))
 
 
-    def est_valide(self,plateau,action,num_tour):
+    def est_valide(self,plateau,action, num_tour):
         try :
             i,j = action.split()
         except :
@@ -26,7 +26,7 @@ class Morpion :
 
     def next(self,plateau,action, num_tour):
         i,j = action.split()
-        i, j = int(i)+1, int(j)+1
+        i, j = int(i), int(j)
         plateau.set_case(i,j,False, 1+num_tour%self.nb_joueurs)
 
 
@@ -38,6 +38,7 @@ class Morpion :
         print(joueurs[n_tour%self.nb_joueurs]+ ", joues !")
         return joueurs[n_tour%self.nb_joueurs]+ ", joues !"
 
+    THEME = {0: "/Images/morpion/empty2.gif", 1: "/Images/morpion/rond2.gif", 2: "/Images/morpion/croix3.gif"}
 
 def terminaison_morpion(plateau) :
     for i in range(3) :
@@ -56,5 +57,5 @@ def terminaison_morpion(plateau) :
                 return False
     return True
 
-#THEME={0 : "/Images/morpion/cercle.png", 1 : "/Images/morpion/cercle.png", 2 : "/Images/morpion/croix_2.png" }
+
 
