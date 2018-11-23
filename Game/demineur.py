@@ -89,8 +89,8 @@ def demineur_suivant(i, j, plateau):
 
 
 def demineur_initialisation(plateau):
-    for i in range(plateau.Jeu.hauteur):
-        for j in range(plateau.Jeu.largeur):
+    for i in range(20):
+        for j in range(20):
             plateau.set_case(i, j, True, 0)
 
     liste_cases = [(i, j) for i in range(20) for j in range(20)]
