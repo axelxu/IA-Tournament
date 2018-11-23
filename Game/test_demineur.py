@@ -70,7 +70,7 @@ def test_arg_max():
 def test_pivot_gauss():
     m = [[1, 1], [1, 1]]
     v = [1, 1]
-    assert pivot_gauss(m, v) == [[0, 0.0], [1, 1]], [0.0, 1]
+    assert (pivot_gauss(m, v) == ([[0, 0.0], [1, 1]], [0.0, 1]))
 
 
 def test_choix_case_ia():
