@@ -1,11 +1,10 @@
-
 from Game.demineur import *
 from Core.Core import *
 
 
 def test_terminaison_demineur():
-    jeu = Demineur()
-    plateau = Plateau(jeu)
+    Jeu = Demineur()
+    plateau = Plateau(Jeu)
     plateau.surface = [[Case((i, j), False, 9) for i in range(20)] for j in range(20)]
     assert terminaison_demineur(plateau)
 
@@ -17,12 +16,9 @@ def test_terminaison_demineur():
     assert terminaison_demineur(plateau)
 
 
-test_terminaison_demineur()
-
-
 def test_demineur_resultat():
-    jeu = Demineur()
-    plateau = Plateau(jeu)
+    Jeu = Demineur()
+    plateau = Plateau(Jeu)
     plateau.surface = [[Case((i, j), False, 9) for i in range(20)] for j in range(20)]
     assert demineur_resultat(plateau) == "Gagné"
 
@@ -35,8 +31,8 @@ def test_demineur_resultat():
 
 
 def test_decompte():
-    jeu = Demineur()
-    plateau = Plateau(jeu)
+    Jeu = Demineur()
+    plateau = Plateau(Jeu)
     plateau.surface = [[Case((i, j), True, 9) for i in range(20)] for j in range(20)]
     decompte(0, 0, plateau)
     assert plateau.surface[0][0].etat == 0
@@ -49,17 +45,16 @@ def test_decompte():
 
 
 def test_demineur_initialisation():
-    jeu = Demineur()
-    plateau = Plateau(jeu)
+    Jeu = Demineur()
+    plateau = Plateau(Jeu)
     demineur_initialisation(plateau)
     assert all([plateau.surface[i][j].vide for i in range(2) for j in range(2)])
-    assert plateau.Jeu.largeur == plateau.Jeu.longueur == 20
     assert len([plateau.surface[i][j] for i in range(20) for j in range(20) if not plateau.surface[i][j].vide]) == 40
 
 
 def test_construire_matrice():
-    jeu = Demineur()
-    plateau = Plateau(jeu)
+    Jeu = Demineur()
+    plateau = Plateau(Jeu)
     plateau.surface = [[Case((i, j), True, 9) for i in range(20)] for j in range(20)]
     plateau.surface[0][0].etat = 1
     plateau.surface[1][0].etat = 1
@@ -79,8 +74,8 @@ def test_pivot_gauss():
 
 
 def test_choix_case_ia():
-    jeu = Demineur()
-    plateau = Plateau(jeu)
+    Jeu = Demineur()
+    plateau = Plateau(Jeu)
     plateau.surface = [[Case((i, j), True, 0) for i in range(20)] for j in range(20)]
 
     plateau.surface[2][0].etat = 1
@@ -89,5 +84,7 @@ def test_choix_case_ia():
         plateau.surface[i][0].etat = 1
 
     assert choix_case_ia(plateau) == (0, 1)
+    
+
 
 
