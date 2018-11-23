@@ -224,4 +224,9 @@ def choix_case_ia(plateau):
                     if m[k][q] == 1:
                         liste_proba[q] = 0
 
-    return set_cases[liste_proba.index(min([x for x in liste_proba if x != 1]))]
+    l = [x for x in liste_proba if x != 1]
+    
+    if len(l) == 0:
+        return rd.choice(set_cases)
+    else:
+        return set_cases[liste_proba.index(min(l))]
