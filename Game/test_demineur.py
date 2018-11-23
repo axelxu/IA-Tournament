@@ -4,7 +4,8 @@ from Core.Core import *
 
 
 def test_terminaison_demineur():
-    plateau = Plateau(Jeu = Demineur)
+    jeu = Demineur()
+    plateau = Plateau(jeu)
     plateau.surface = [[Case((i, j), False, 9) for i in range(20)] for j in range(20)]
     assert terminaison_demineur(plateau)
 
@@ -20,7 +21,8 @@ test_terminaison_demineur()
 
 
 def test_demineur_resultat():
-    plateau = Plateau(Jeu = Demineur)
+    jeu = Demineur()
+    plateau = Plateau(jeu)
     plateau.surface = [[Case((i, j), False, 9) for i in range(20)] for j in range(20)]
     assert demineur_resultat(plateau) == "Gagné"
 
@@ -33,7 +35,8 @@ def test_demineur_resultat():
 
 
 def test_decompte():
-    plateau = Plateau(Jeu = Demineur)
+    jeu = Demineur()
+    plateau = Plateau(jeu)
     plateau.surface = [[Case((i, j), True, 9) for i in range(20)] for j in range(20)]
     decompte(0, 0, plateau)
     assert plateau.surface[0][0].etat == 0
@@ -46,7 +49,8 @@ def test_decompte():
 
 
 def test_demineur_initialisation():
-    plateau = Plateau(Jeu = Demineur)
+    jeu = Demineur()
+    plateau = Plateau(jeu)
     demineur_initialisation(plateau)
     assert all([plateau.surface[i][j].vide for i in range(2) for j in range(2)])
     assert plateau.Jeu.largeur == plateau.Jeu.longueur == 20
@@ -54,7 +58,8 @@ def test_demineur_initialisation():
 
 
 def test_construire_matrice():
-    plateau = Plateau(Jeu = Demineur)
+    jeu = Demineur()
+    plateau = Plateau(jeu)
     plateau.surface = [[Case((i, j), True, 9) for i in range(20)] for j in range(20)]
     plateau.surface[0][0].etat = 1
     plateau.surface[1][0].etat = 1
@@ -74,7 +79,8 @@ def test_pivot_gauss():
 
 
 def test_choix_case_ia():
-    plateau = Plateau(Jeu = Demineur)
+    jeu = Demineur()
+    plateau = Plateau(jeu)
     plateau.surface = [[Case((i, j), True, 0) for i in range(20)] for j in range(20)]
 
     plateau.surface[2][0].etat = 1
