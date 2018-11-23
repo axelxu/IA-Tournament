@@ -48,6 +48,7 @@ class Demineur :
              9 : "/Images/demineur/inconnue.gif"}
 
 def terminaison_demineur(plateau):
+    """Retourne True si la partie est terminée, False sinon."""
     liste_cachees = []
     liste_piegees = []
 
@@ -64,6 +65,7 @@ def terminaison_demineur(plateau):
 
 
 def decompte(i, j, plateau):
+    """Affiche le nombre de mines présentes autours de la case i, j. Si il n'y en a aucune, recommence pour les cases entourant i."""
     cases_visitees = []
 
     def decompte_aux(i, j, plateau):
@@ -85,10 +87,13 @@ def decompte(i, j, plateau):
 
 
 def demineur_suivant(i, j, plateau):
+    """Fini le tour."""
     decompte(i, j, plateau)
 
 
 def demineur_initialisation(plateau):
+    """Initialise le plateau du démineur : grille 20x20, toutes les cases sont masquées, il y a 40 mines
+        réparties aléatoirement en dehors du carré 2x2 dans le coin en haut à gauche."""
     for i in range(20):
         for j in range(20):
             plateau.set_case(i, j, True, 0)
@@ -109,6 +114,7 @@ def demineur_initialisation(plateau):
 
 
 def demineur_resultat(plateau):
+    """La partie étant terminée, retourne "Gagné" si l'utilisateur a gagné, "Perdu" sinon."""
     for i in range(20):
         for j in range(20):
             Case = plateau.surface[i][j]
@@ -118,6 +124,7 @@ def demineur_resultat(plateau):
 
 
 def construire_matrice(plateau):
+    """Met le problème sous forme matricielle."""
     voisinages = {}
     liste_cases_connues = []
     for i in range(20):
@@ -148,6 +155,7 @@ def construire_matrice(plateau):
 
 
 def arg_max(t):
+    """Retourne l'indice du maximum de t."""
     m = max(t)
     for i in range(len(t)):
         if t[i] == m:
@@ -155,6 +163,7 @@ def arg_max(t):
 
 
 def pivot_gauss(matrix, vector):
+    """Applique la méthode du pivot de Gauss au système matrix, vector."""
     m = matrix
     v = vector
     n = len(m)
@@ -183,6 +192,7 @@ def pivot_gauss(matrix, vector):
 
 
 def choix_case_ia(plateau):
+    """Retourne une case choisie par l'ia."""
     liste_mines = []
     matrix, vector, set_cases = construire_matrice(plateau)
     m, v = pivot_gauss(matrix, vector)
