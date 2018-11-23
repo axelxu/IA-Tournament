@@ -13,7 +13,6 @@ def jouer(plateau, num_tour):
                 action = str(i)+str(j)+" "+str(s(i+di))+str(s(j+dj))
                 if plateau.est_valide(action, num_tour):
                     return action
-
     for i in rdi:
         for j in rdj:
             for di,dj in [(-1,-1), (-1,1), (1,-1), (1,1)]:

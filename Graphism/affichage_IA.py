@@ -1,7 +1,6 @@
 from tkinter import *
 import Core.Core as c
 import os
-
 import IAs.IA_test_puissance_4 as ia_p4
 import IAs.IA_opti_morpion as ia_morpion
 import IAs.Ia_dames as ia_dames
@@ -9,11 +8,9 @@ import IAs.ia_2048 as ia_2048
 import IAs.ia_echecs as ia_echecs
 IAS = {"morpion" : ia_morpion, "puissance_4" : ia_p4, "dames" : ia_dames, "2048":ia_2048, "echecs":ia_echecs}
 dir = os.getcwd()
-import time
 
 global pile
 pile = []
-
 
 def test_click(event):
     """Allows user to interact in a graphical way with the game"""

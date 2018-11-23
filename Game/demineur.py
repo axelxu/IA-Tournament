@@ -89,8 +89,8 @@ def demineur_suivant(i, j, plateau):
 
 
 def demineur_initialisation(plateau):
-    for i in range(plateau.Jeu.hauteur):
-        for j in range(plateau.Jeu.largeur):
+    for i in range(20):
+        for j in range(20):
             plateau.set_case(i, j, True, 0)
 
     liste_cases = [(i, j) for i in range(20) for j in range(20)]
@@ -224,4 +224,9 @@ def choix_case_ia(plateau):
                     if m[k][q] == 1:
                         liste_proba[q] = 0
 
-    return set_cases[liste_proba.index(min([x for x in liste_proba if x != 1]))]
+    l = [x for x in liste_proba if x != 1]
+    
+    if len(l) == 0:
+        return rd.choice(set_cases)
+    else:
+        return set_cases[liste_proba.index(min(l))]
