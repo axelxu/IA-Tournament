@@ -1,7 +1,6 @@
 from Game.dames import Dames
 from Core.Core import *
 
-
 def test_terminaison():
     jeu = Dames()
     partie = Partie(jeu, ["a","b"])
@@ -11,12 +10,6 @@ def test_terminaison():
         for j in range(jeu.largeur):
             partie.plateau.set_case(i,j,True,0)
     assert partie.plateau.termine() == True
-
-def test_resultat():
-    jeu = Dames()
-    partie = Partie(jeu, ["a", "b"])
-    partie.plateau.initialisation()
-    assert partie.plateau.resultat(partie.plateau) == "axel"
 
 def test_est_valide():
     jeu = Dames()
@@ -46,3 +39,9 @@ def test_message():
     assert partie.plateau.message(0,[]) == "Aux blancs de jouer"
     assert partie.plateau.message(1, []) == "Aux noirs de jouer"
 
+
+def test_resultat():
+    jeu = Dames()
+    partie = Partie(jeu, ["a", "b"])
+    partie.plateau.initialisation()
+    assert partie.plateau.resultat(partie.plateau) == "axel"
