@@ -1,6 +1,7 @@
+# coding: utf8
 from Game.demineur import *
 from Core.Core import *
-
+import pytest
 
 def test_terminaison_demineur():
     plateau = Plateau()

@@ -20,8 +20,8 @@ class Dames :
                     plateau.set_case(self.hauteur-1-i, j, False, 1)
 
     def termine(self,plateau):
-        """Returns True when a player has won or no more action is possible"""
-        return False
+        return not(action_possible(plateau, 0)) or not(action_possible(plateau, 1))
+
 
     def est_valide(self, plateau, action, num_tour):
         """Returns the boolean corresponding to "is the move action acceptable in plateau with respect to the games rules" """
@@ -67,8 +67,6 @@ class Dames :
     for i in range(3):
             THEME[i] = "/Images/dames/" + str(i) + ".gif"
 
-    def terminaison_morpion(plateau):
-        return False
 
 def accessible(plateau, piece, depart, arrivee):
 
@@ -87,4 +85,24 @@ def accessible(plateau, piece, depart, arrivee):
         elif abs(ja-jd) == 2:
             if id - ia == -2:
                 return plateau.get_etat((ia+id)//2, (ja+jd)//2)==1
+    return False
+
+def action_possible(plateau, joueur):
+    def s(x):
+        return max(0, x)
+
+    rdi = list(range(plateau.Jeu.hauteur))
+    rdj = list(range(plateau.Jeu.largeur))
+    for i in rdi:
+        for j in rdj:
+            for di,dj in [(-2,-2), (-2,2), (2,-2), (2,2)]:
+                action = str(i)+str(j)+" "+str(s(i+di))+str(s(j+dj))
+                if plateau.est_valide(action, joueur):
+                    return True
+    for i in rdi:
+        for j in rdj:
+            for di,dj in [(-1,-1), (-1,1), (1,-1), (1,1)]:
+                action = str(i)+str(j)+" "+str(s(i+di))+str(s(j+dj))
+                if plateau.est_valide(action, joueur):
+                    return True
     return False
