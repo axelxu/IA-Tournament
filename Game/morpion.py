@@ -9,7 +9,9 @@ class Morpion :
 
     def initialisation(self, plateau):
         """Empty the plate and set the correct configuration"""
-        pass
+        for i in range(self.hauteur):
+            for j in range(self.largeur):
+                plateau.set_case(i,j,True, 0)
 
 
     def termine(self,plateau):

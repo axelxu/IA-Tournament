@@ -16,19 +16,22 @@ class Echec :
             plateau.set_case(7,i, False, piece+"B")
             plateau.set_case(6, i, False, "PB")
             plateau.set_case(1, i, False, "PN")
-        for i, piece in enumerate(["T", "C", "F", "R", "D", "F", "C", "T"]):
             plateau.set_case(0,i,False, piece+"N")
 
     def termine(self,plateau):
         """Returns True when a player has won or no more action is possible"""
-        return(terminaison_morpion(plateau))
+
+        return echec_et_mat(plateau, 0) or echec_et_mat(plateau, 1)
 
 
     def est_valide(self,plateau,action, num_tour):
         """Returns the boolean corresponding to "is the move action acceptable in plateau with respect to the games rules" """
         dep,arr = action.split()
-        id, jd = int(dep[0]), int(dep[1])
-        ia, ja = int(arr[0]), int(arr[1])
+        try :
+            id, jd = int(dep[0]), int(dep[1])
+            ia, ja = int(arr[0]), int(arr[1])
+        except :
+            return False
         print(ia, ja, id, jd)
         dans_le_plateau = 0<=ia<self.hauteur and 0<=ja<self.largeur and 0<=id<self.hauteur and 0<=jd<self.largeur
         if not(dans_le_plateau):
@@ -36,6 +39,14 @@ class Echec :
         piece = plateau.get_etat(id, jd)
         non_vide = not(plateau.est_vide(id, jd))
         if not(non_vide):
+            return False
+        if dep ==arr:
+            return False
+        if not(plateau.est_vide(ia, ja)) and plateau.get_etat(ia, ja)[1]== piece[1]:
+            return False
+        if piece[1]!=["B","N"][num_tour%2]:
+            return False
+        if not(plateau.est_vide(ia, ja)) and plateau.get_etat(ia, ja)[0]=="R":
             return False
         arrivee_accessible = accessible(plateau,piece[0], (id, jd), (ia, ja))
         print(arrivee_accessible)
@@ -53,7 +64,7 @@ class Echec :
 
 
     def resultat(self,plateau):
-        return("axel")
+        return("Echec et mat")
 
 
     def message(self, n_tour, joueurs):
@@ -65,8 +76,37 @@ class Echec :
     for couleur in "NB":
         for piece in ["T", "C", "F", "R", "D", "P"]:
             THEME[piece+couleur] = "/Images/echecs/"+piece+couleur+".gif"
-def terminaison_morpion(plateau) :
+
+
+def case_attaquee(plateau, ia,ja,camp):
+    for i in range(8):
+        for j in range(8):
+            if not(plateau.est_vide(i,j)) and plateau.get_etat(i,j)[0]!="R" and plateau.get_etat(i,j)[1] == camp and accessible(plateau, plateau.get_etat(i,j)[0], (i,j), (ia,ja)):
+                print("debug", ia, ja, i, j)
+                return True
     return False
+
+def trouver_roi(plateau):
+    pos = [(),()]
+    for i in range(8):
+        for j in range(8):
+            if plateau.get_etat(i,j) == "RB":
+                pos[0] = (i,j)
+            if plateau.get_etat(i,j) == "RN":
+                pos[1] = (i,j)
+
+    return pos
+
+def echec_et_mat(plateau, camp):
+    position = trouver_roi(plateau)[camp]
+    i,j = position
+    dep = [(-1,-1), (-1,0), (-1, 1), (0,-1), (0,1), (1, -1), (1, 0), (1, 1)]
+    for d in dep :
+        di, dj = d
+        if plateau.est_valide(str(i)+str(j)+" "+str(i+di)+str(j+dj),camp):
+            if not(case_attaquee(plateau, i+di, j+dj, ["B", "N"][1-camp])):
+                return False
+    return case_attaquee(plateau, i, j, ["B", "N"][1-camp])
 
 
 def accessible(plateau,piece, depart, arrivee):
@@ -94,21 +134,45 @@ def accessible(plateau,piece, depart, arrivee):
         if abs(id-ia) == abs(jd - ja):
             if id > ia:
                 if jd > ja :
-                    return all(plateau.est_vide(id+k, jd+k) for k in range(1, ia-id))
+                    return all(plateau.est_vide(id-k, jd-k) for k in range(1, id-ia))
                 if jd < ja :
-                    return all(plateau.est_vide(id+k, jd-k) for k in range(1, ia-id))
+                    return all(plateau.est_vide(id-k, jd+k) for k in range(1, id-ia))
             if id < ia:
                 if jd > ja :
-                    return all(plateau.est_vide(id-k, jd+k) for k in range(1, id-ia))
+                    return all(plateau.est_vide(id+k, jd-k) for k in range(1, ia-id))
                 if jd < ja :
-                    return all(plateau.est_vide(id-k, jd-k) for k in range(1, id-ia))
+                    return all(plateau.est_vide(id+k, jd+k) for k in range(1, ia-id))
 
     elif piece == "D":
         return accessible(plateau, "F", depart, arrivee) or accessible(plateau, "T", depart, arrivee)
 
     elif piece == "R":
-        return abs(id-ia)<=1 and abs(jd-ja)<=1
+        couleur = plateau.get_etat(id, jd)[1]
+        return abs(id-ia)<=1 and abs(jd-ja)<=1 and not(case_attaquee(plateau, ia, ja, "B" if couleur == "N" else "N"))
 
     elif piece == "P":
-        #couleur = plateau.get_etat(id, jd)
-        return True
+        if plateau.get_etat(id, jd)[1]=="N":
+            if ja == jd and ia == id+1 and plateau.est_vide(ia,ja):
+                return True
+
+            if id == 1 and plateau.est_vide(id+1, jd) and ia == id+2 and plateau.est_vide(ia,ja):
+                return True
+
+            if ja == jd-1 and ia == id+1:
+                return not(plateau.est_vide(ia,ja)) and plateau.get_etat(ia, ja)[1]=="B"
+            if ja == jd+1 and ia == id+1:
+                return not(plateau.est_vide(ia,ja)) and plateau.get_etat(ia, ja)[1]=="B"
+
+        if plateau.get_etat(id, jd)[1] == "B":
+            if ja == jd and ia == id - 1 and plateau.est_vide(ia, ja):
+                return True
+
+            if id == 6 and plateau.est_vide(id - 1, jd) and ia == id - 2 and plateau.est_vide(ia, ja):
+                return True
+
+            if ja == jd - 1 and ia == id - 1:
+                return not (plateau.est_vide(ia, ja)) and plateau.get_etat(ia, ja)[1] == "N"
+            if ja == jd + 1 and ia == id - 1:
+                return not (plateau.est_vide(ia, ja)) and plateau.get_etat(ia, ja)[1] == "N"
+
+        return False

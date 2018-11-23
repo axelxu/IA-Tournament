@@ -6,7 +6,8 @@ import IAs.IA_test_puissance_4 as ia_p4
 import IAs.IA_opti_morpion as ia_morpion
 import IAs.Ia_dames as ia_dames
 import IAs.ia_2048 as ia_2048
-IAS = {"morpion" : ia_morpion, "puissance_4" : ia_p4, "dames" : ia_dames, "2048":ia_2048}
+import IAs.ia_echecs as ia_echecs
+IAS = {"morpion" : ia_morpion, "puissance_4" : ia_p4, "dames" : ia_dames, "2048":ia_2048, "echecs":ia_echecs}
 dir = os.getcwd()
 import time
 
@@ -42,7 +43,7 @@ def test_click(event):
         if not(partie.plateau.termine()):
             action = ias[0].jouer(partie.plateau, num_tour)
             agir(action)
-            root.after(10, lambda: test_click(event))
+            root.after(200, lambda: test_click(event))
 
     elif jeu.nb_joueurs == 2 :
         if mode.get() == 1 :
@@ -53,8 +54,10 @@ def test_click(event):
             i, j = action.split()
             if nom_du_jeu.get() in ["demineur", "morpion", "othello" ]:
                 agir(action)
+                agi = True
             elif nom_du_jeu.get() == "puissance_4":
                 agir(j + " " + str(num_tour % 2 + 1))
+                agi = True
             else:
                 pile.append(i + j)
                 print(pile)
@@ -75,7 +78,7 @@ def test_click(event):
             if not (partie.plateau.termine()):
                 action = ias[num_tour%2].jouer(partie.plateau, num_tour)
                 agir(action)
-                root.after(10, lambda : test_click(event))
+                root.after(200, lambda : test_click(event))
 
 
 
@@ -276,6 +279,8 @@ def main():
         partie.plateau.afficher()
         choix = choix_joueurs(saisie)
         choix.grid(row=4, column=0)
+        texte.set(text = "")
+        texte.update()
 
     jouer = Button(saisie, text = "Jouer", command=lambda : agir(action.get()))
     top.grid(row = 0, column = 0)
