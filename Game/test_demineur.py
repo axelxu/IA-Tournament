@@ -73,7 +73,7 @@ def test_pivot_gauss():
     assert (pivot_gauss(m, v) == ([[0, 0.0], [1, 1]], [0.0, 1]))
 
 
-def test_choix_case_ia():
+"""def test_choix_case_ia():
     Jeu = Demineur()
     plateau = Plateau(Jeu)
     plateau.surface = [[Case((i, j), True, 0) for i in range(20)] for j in range(20)]
@@ -83,7 +83,7 @@ def test_choix_case_ia():
         plateau.surface[i][1].etat = 9
         plateau.surface[i][0].etat = 1
 
-    assert choix_case_ia(plateau) == (0, 1)
+    assert choix_case_ia(plateau) == (0, 1)"""
     
 
 

@@ -1,38 +1,44 @@
-from Game.dames import Dames
+from Game.echecs import Echec
 from Core.Core import *
 
 def test_terminaison():
-    jeu = Dames()
+    jeu = Echec()
     partie = Partie(jeu, ["a","b"])
     partie.plateau.initialisation()
     assert partie.plateau.termine() == False
     for i in range(jeu.hauteur):
         for j in range(jeu.largeur):
             partie.plateau.set_case(i,j,True,0)
+    partie.plateau.set_case(0,0,False, "RN")
+    partie.plateau.set_case(5, 5, False, "RB")
+    partie.plateau.set_case(0, 1, False, "TB")
+    partie.plateau.set_case(1, 0, False, "TB")
+    partie.plateau.set_case(1, 1, False, "DB")
     assert partie.plateau.termine() == True
 
 def test_est_valide():
-    jeu = Dames()
+    jeu = Echec()
     partie = Partie(jeu, ["a", "b"])
     partie.plateau.initialisation()
-    assert partie.plateau.est_valide("61 52", 0) == True
-    assert partie.plateau.est_valide("00 11", 0) == False
-    assert partie.plateau.est_valide("61 61", 0) == False
-    assert partie.plateau.est_valide("30 41", 1) == True
+    assert partie.plateau.est_valide("60 50", 0) == True
+    assert partie.plateau.est_valide("60 40", 0) == True
+    assert partie.plateau.est_valide("71 50", 0) == True
+    assert partie.plateau.est_valide("62 33", 0) == False
+    assert partie.plateau.est_valide("10 20", 1) == True
     assert partie.plateau.est_valide("61 52", 1) == False
 
 def test_next():
-    jeu = Dames()
+    jeu = Echec()
     partie = Partie(jeu, ["a", "b"])
     partie.plateau.initialisation()
-    partie.plateau.next("61 52", 0)
+    partie.plateau.next("60 50", 0)
     partie1 = Partie(jeu, ["a", "b"])
     partie1.plateau.initialisation()
-    partie1.plateau.set_case(6,1,True,0)
-    partie1.plateau.set_case(5, 2, False, 1)
+    partie1.plateau.set_case(6,0,True,'')
+    partie1.plateau.set_case(5,0,False,'PB')
 
 def test_message():
-    jeu = Dames()
+    jeu = Echec()
     partie = Partie(jeu, ["a", "b"])
     partie.plateau.initialisation()
     assert partie.plateau.message(0,[]) == "Aux blancs de jouer"
@@ -40,7 +46,7 @@ def test_message():
 
 
 def test_resultat():
-    jeu = Dames()
+    jeu = Echec()
     partie = Partie(jeu, ["a", "b"])
     partie.plateau.initialisation()
-    assert partie.plateau.resultat(partie.plateau) == "axel"
+    assert partie.plateau.resultat(partie.plateau) == "Echec et mat"
